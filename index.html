@@ -1,0 +1,3483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>For You — Valentine's Template</title>
+
+  <!-- Cinematic Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+  <!-- Preload critical GIFs -->
+  <link rel="preload" as="image" href="https://media.tenor.com/Lgr_6-nkvnUAAAAi/casal-dudu.gif">
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f5f0eb;
+      --bg-warm: #f0ebe4;
+      --bg-cool: #edeae6;
+      --ink: #2a2320;
+      --ink-light: #6b5e54;
+      --ink-faint: #a89e94;
+      --accent: #c4956a;
+      --accent-warm: #d4a574;
+      --white: #faf8f5;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+      min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .screen.active { display: flex; }
+
+    /* ─── FADE ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeIn 0.7s ease forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ────────────────────────────────────────
+       SCREEN 1 — DANDELION WISH
+    ──────────────────────────────────────── */
+    #dandelion-screen {
+      background: var(--bg);
+      gap: 1.5rem;
+      cursor: default;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .dandelion-prompt {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--ink-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    #dandelionCanvas {
+      cursor: pointer;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+
+    .blow-hint {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--ink-faint);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* ────────────────────────────────────────
+       SCREEN 2 — INTRO
+    ──────────────────────────────────────── */
+    #intro {
+      background: var(--bg-warm);
+      gap: 2rem;
+    }
+
+    .intro-sticker {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .intro-sticker img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .intro-greeting {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+
+    .intro-sub {
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      color: var(--ink-light);
+      max-width: 360px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .btn-primary {
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 14px 44px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #3d3530; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+
+    /* ────────────────────────────────────────
+       SCREEN 3 — THE ASK
+    ──────────────────────────────────────── */
+    #ask {
+      background: var(--bg);
+      gap: 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ask-sticker {
+      width: 220px;
+      height: 220px;
+      overflow: hidden;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .ask-sticker img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .ask-question {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 5.5vw, 2.4rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      max-width: 480px;
+    }
+
+    .btn-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn-yes {
+      background: var(--ink);
+      color: var(--white);
+      border: none;
+      padding: 14px 40px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-yes:hover { background: #3d3530; transform: translateY(-2px); }
+
+    /* No button lives in a bounded container so it never disappears */
+    .no-zone {
+      position: relative;
+      width: 320px;
+      height: 70px;
+    }
+
+    .btn-no {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 14px 40px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+
+    /* ─── LOADING FEELINGS ─── */
+    #loadingCanvas {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .loading-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 3vw, 1.2rem);
+      color: var(--ink);
+      opacity: 0.85;
+      transition: all 0.3s ease;
+      min-height: 1.5em;
+    }
+    .dont-press-hint {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      letter-spacing: 0.04em;
+      margin-top: 1.5rem;
+      opacity: 0.5;
+    }
+
+    /* ────────────────────────────────────────
+       SCREEN 5 — CELEBRATION
+    ──────────────────────────────────────── */
+    #celebration {
+      background: var(--bg-warm);
+      gap: 1rem;
+      padding: 1.2rem 1.5rem;
+      animation: celebGlow 3s ease-in-out infinite;
+    }
+    @keyframes celebGlow {
+      0%, 100% { background: var(--bg-warm); }
+      50% { background: #fdf5ed; }
+    }
+
+    .celeb-gifs {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .celeb-sticker {
+      width: 170px;
+      height: 170px;
+      overflow: hidden;
+      border-radius: 18px;
+      animation: celebFloat 3s ease-in-out infinite;
+    }
+    .celeb-sticker-secondary {
+      width: 105px;
+      height: 105px;
+      overflow: hidden;
+      border-radius: 14px;
+      animation: celebFloat 3.5s ease-in-out infinite reverse;
+    }
+
+    .celeb-sticker img, .celeb-sticker-secondary img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    @keyframes celebFloat {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-6px) rotate(1deg); }
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      font-style: italic;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: opacity 0.3s;
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .back-btn:hover { opacity: 0.7; }
+
+    .celeb-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 5.5vw, 2.5rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+
+    .celeb-message {
+      font-size: clamp(1rem, 2.8vw, 1.15rem);
+      color: var(--ink-light);
+      max-width: 380px;
+      line-height: 1.7;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .celeb-foreshadow {
+      margin-top: 0.3rem;
+      padding: 18px 28px;
+      border: 1.5px solid var(--ink-faint);
+      max-width: 380px;
+    }
+
+    .celeb-foreshadow p {
+      font-size: 1rem;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .celeb-foreshadow .hint {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-top: 10px;
+    }
+
+    .foreshadow-gif {
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin: 0 auto 8px;
+    }
+    .foreshadow-gif img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ─── CODE ENTRY ─── */
+    .code-entry {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .code-input {
+      width: 200px;
+      padding: 10px 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      text-align: center;
+      letter-spacing: 0.2em;
+      color: var(--ink);
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid var(--ink-faint);
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .code-input::placeholder {
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+      font-style: italic;
+    }
+    .code-input:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    .code-error {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-style: italic;
+      opacity: 0;
+      transition: opacity 0.3s;
+      height: 1.2em;
+    }
+    .code-error.visible {
+      opacity: 1;
+    }
+
+    .btn-start {
+      margin-top: 8px;
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 12px 48px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-start:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    /* ─── BOOKSHELF HUB ─── */
+    #adventure {
+      background: var(--bg-cool);
+      gap: 2rem;
+    }
+
+    .bookshelf-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.4rem, 5vw, 2.2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+
+    .bookshelf-sub {
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink-faint);
+      font-style: italic;
+      margin-top: -0.8rem;
+    }
+
+    .bookshelf {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 24px 16px 0;
+    }
+
+    .book {
+      width: 95px;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 10px;
+      cursor: pointer;
+      border: 1.5px solid var(--ink);
+      position: relative;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .book::before {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--ink-faint);
+      opacity: 0.5;
+    }
+    .book:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(42, 35, 32, 0.12);
+    }
+
+    .book-1 { background: var(--bg-warm); }
+    .book-2 { background: #ede8e1; }
+    .book-3 { background: #eae6df; }
+    .book-4 { background: #e8e3dc; }
+    .book-5 { background: #e5e0d8; }
+    .book-6 { background: #e2ddd5; }
+
+    .book-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--ink-faint);
+    }
+
+    .book-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .book-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      line-height: 1.3;
+    }
+
+    .shelf-line {
+      width: calc(100% - 2rem);
+      max-width: 420px;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--ink-faint), var(--ink), var(--ink-faint), transparent);
+      border-radius: 2px;
+      margin-top: -1px;
+    }
+
+    /* ─── BOOK SCREENS SHARED ─── */
+    .book-screen {
+      background: var(--bg);
+      gap: 1.5rem;
+    }
+
+    .book-screen-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+
+    .btn-back {
+      margin-top: 1rem;
+      background: transparent;
+      color: var(--ink-faint);
+      border: 1px solid var(--ink-faint);
+      padding: 10px 32px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-back:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* ─── BOOK 1: THE LETTER ─── */
+    .letter-content {
+      max-width: 440px;
+      padding: 32px;
+      border: 1px solid var(--ink-faint);
+      background: var(--white);
+      text-align: left;
+    }
+
+    .letter-salutation {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .letter-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 2;
+      white-space: pre-line;
+    }
+
+    .letter-sign {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-top: 24px;
+      text-align: right;
+    }
+
+    /* ─── BOOK 2: SONGS ─── */
+    .songs-list {
+      max-width: 380px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .song-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(168, 158, 148, 0.25);
+      text-align: left;
+      transition: background 0.2s;
+    }
+    .song-item:last-child { border-bottom: none; }
+    .song-item:hover { background: rgba(168, 158, 148, 0.08); }
+    .song-item.active {
+      background: rgba(196, 149, 106, 0.08);
+    }
+    .song-item.active .song-num,
+    .song-item.active .song-play-icon {
+      color: var(--accent);
+    }
+    .song-item[data-track=""] {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* Scrollable song list for many tracks */
+    #book-songs {
+      justify-content: flex-start;
+      padding-top: 3rem;
+      padding-bottom: 2rem;
+      overflow-y: auto;
+    }
+    #book-songs .songs-list {
+      max-height: none;
+    }
+
+    .song-num {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .song-info {
+      flex: 1;
+    }
+
+    .song-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .song-artist {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    .song-play-icon {
+      font-size: 0.7rem;
+      color: var(--ink-faint);
+      transition: color 0.2s;
+    }
+
+    .songs-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      max-width: 300px;
+      margin-top: 0.5rem;
+    }
+
+    .spotify-player {
+      max-width: 380px;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── BOOK 3: CONFESSIONS ─── */
+    .confession-card {
+      max-width: 380px;
+      width: 100%;
+      padding: 40px 32px;
+      border: 1px solid var(--ink-faint);
+      background: var(--white);
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    .confession-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 4px 14px;
+      border: 1px solid var(--accent);
+    }
+
+    .confession-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 4vw, 1.4rem);
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.7;
+      text-align: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .confession-count {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+    }
+
+    .btn-shuffle {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 12px 40px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-shuffle:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    /* ─── BOOK 4: MEMORIES ─── */
+    #book-memories {
+      justify-content: flex-start;
+      padding-top: 3rem;
+      padding-bottom: 2rem;
+      overflow-y: auto;
+    }
+
+    .memories-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    .memories-scroll {
+      max-width: 420px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .memory-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .memory-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border: 1px solid rgba(168, 158, 148, 0.3);
+      background: var(--bg-warm);
+    }
+
+    .memory-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .memory-caption {
+      padding: 0 4px;
+    }
+
+    .memory-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+
+    /* Placeholder card for future memories */
+    .placeholder-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px dashed var(--ink-faint);
+      background: transparent;
+    }
+
+    .placeholder-icon {
+      font-size: 2rem;
+      color: var(--ink-faint);
+      opacity: 0.5;
+    }
+
+    .placeholder-text {
+      color: var(--ink-faint);
+      opacity: 0.6;
+    }
+
+    /* ─── BOOK 5: CARE GUIDE ─── */
+    #book-care {
+      justify-content: flex-start;
+      padding-top: 3rem;
+      padding-bottom: 2rem;
+      overflow-y: auto;
+    }
+
+    .care-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    .care-tabs {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      width: 100%;
+      border-bottom: 1px solid rgba(168, 158, 148, 0.3);
+    }
+
+    .care-tab {
+      flex: 1;
+      padding: 10px 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .care-tab:hover {
+      color: var(--ink-light);
+    }
+    .care-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--accent);
+    }
+
+    .care-panel {
+      display: none;
+      max-width: 420px;
+      width: 100%;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 1rem;
+    }
+    .care-panel.active {
+      display: flex;
+    }
+
+    .tip-card {
+      text-align: left;
+      padding: 20px;
+      border: 1px solid rgba(168, 158, 148, 0.25);
+      background: var(--white);
+    }
+
+    .tip-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .tip-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .tip-source {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      line-height: 1.4;
+    }
+
+    /* ─── BOOK 6: FLOWERS ─── */
+    #book-flowers {
+      background: var(--bg);
+      gap: 1.5rem;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bouquet-wrap {
+      position: relative;
+      width: 280px;
+      height: 380px;
+    }
+
+    /* Blue wrapping paper — cone shape */
+    .bouquet-paper {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 180px;
+      background: linear-gradient(135deg, #8aacc8 0%, #6b9ec2 40%, #5a8db5 100%);
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+      border-radius: 0 0 4px 4px;
+      z-index: 2;
+    }
+    .bouquet-paper::after {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 12px;
+      background: linear-gradient(135deg, #7ba3c0, #5a8db5);
+      border-radius: 50%;
+      z-index: 3;
+    }
+
+    /* Ribbon */
+    .bouquet-ribbon {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 8px;
+      background: #d4a574;
+      border-radius: 4px;
+      z-index: 4;
+    }
+
+    /* Stems */
+    .lily-stem {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(to top, #6e8455, #8a9e6e);
+      z-index: 1;
+      transform-origin: bottom center;
+    }
+
+    /* Individual lily flower */
+    .lily {
+      position: absolute;
+      z-index: 3;
+    }
+
+    .lily-petal {
+      position: absolute;
+      width: 18px;
+      height: 40px;
+      background: linear-gradient(to top, #f5f0eb, #ffffff);
+      border-radius: 50% 50% 45% 45%;
+      transform-origin: bottom center;
+      border: 1px solid rgba(200, 195, 188, 0.3);
+    }
+
+    .lily-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #e8c547 30%, #d4a030 100%);
+      border-radius: 50%;
+      z-index: 5;
+    }
+
+    /* Stamen dots */
+    .lily-stamen {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #c4956a;
+      border-radius: 50%;
+    }
+
+    /* Floating petals animation */
+    .floating-petal {
+      position: absolute;
+      width: 16px;
+      height: 28px;
+      background: #e8a0b0;
+      border-radius: 50% 50% 45% 45%;
+      opacity: 0;
+      z-index: 10;
+      pointer-events: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .floating-petal.falling {
+      animation: petalFall var(--petal-dur, 4s) var(--petal-delay, 0s) ease-in-out forwards;
+    }
+
+    @keyframes petalFall {
+      0% {
+        opacity: 0;
+        transform: translate(0, 0) rotate(0deg);
+      }
+      10% { opacity: 1; }
+      85% { opacity: 0.7; }
+      100% {
+        opacity: 0;
+        transform:
+          translate(var(--petal-x, 60px), var(--petal-y, 400px))
+          rotate(var(--petal-rot, 200deg));
+      }
+    }
+
+    .flowers-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+
+    .flowers-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      font-style: italic;
+      color: var(--ink-light);
+      max-width: 360px;
+      line-height: 1.7;
+    }
+
+    .flowers-reveal {
+      padding: 20px 28px;
+      border: 1.5px solid var(--accent);
+      max-width: 380px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 0.7s ease 2s forwards;
+    }
+
+    .flowers-reveal p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    .flowers-reveal .reveal-hint {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-top: 8px;
+    }
+
+    .bouquet-wrap {
+      animation: fadeIn 0.7s ease forwards, bouquetFloat 4s ease-in-out infinite;
+    }
+    @keyframes bouquetFloat {
+      0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+      50% { transform: translateY(-6px) rotate(0.5deg); }
+    }
+
+    /* ─── COFFEE QUEST ─── */
+    #coffee-quest {
+      background: var(--bg);
+      gap: 1.2rem;
+    }
+    .coffee-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .coffee-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink);
+      opacity: 0.7;
+    }
+
+    #coffeeCanvas {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
+    .coffee-btn {
+      background: none;
+      border: 1.5px solid var(--accent);
+      color: var(--ink);
+      padding: 12px 36px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+    .coffee-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .coffee-btn:active { transform: translateY(0); }
+
+    .coffee-done {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .coffee-done.show { opacity: 1; }
+
+    /* ─── SNACK QUEST ─── */
+    #snack-quest {
+      background: var(--bg);
+      gap: 1rem;
+    }
+    .snack-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .snack-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink);
+      opacity: 0.7;
+    }
+    #snackCanvas {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+    .snack-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .snack-btn {
+      background: none;
+      border: 1.5px solid var(--accent);
+      color: var(--ink);
+      padding: 10px 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+    .snack-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .snack-btn:active { transform: translateY(0); }
+    .snack-done {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .snack-done.show { opacity: 1; }
+
+    /* ─── MINI GAME ─── */
+    #game-select {
+      background: var(--bg-cool);
+      gap: 1.5rem;
+    }
+    .game-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.3rem, 5vw, 2rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .game-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-top: -0.5rem;
+    }
+    .char-select {
+      display: flex;
+      gap: 20px;
+      margin-top: 0.5rem;
+    }
+    .char-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 24px 16px;
+      border: 1.5px solid var(--ink-faint);
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .char-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(42, 35, 32, 0.1);
+    }
+    .char-preview {
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+    }
+    .char-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .char-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--ink-faint);
+    }
+    #game-play {
+      background: var(--bg);
+      padding: 1rem;
+      gap: 0.5rem;
+      justify-content: flex-start;
+      padding-top: 1.5rem;
+    }
+    .game-hud {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 400px;
+      padding: 0 4px 8px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+    #gameCanvas {
+      border: 1.5px solid var(--ink-faint);
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      touch-action: none;
+    }
+    .game-hint {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--ink-faint);
+      margin-top: 8px;
+    }
+    #game-over {
+      background: var(--bg-warm);
+      gap: 1.2rem;
+    }
+    .go-score {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.04em;
+    }
+    .go-hearts {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+      font-style: italic;
+    }
+    .go-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      color: var(--ink-light);
+      max-width: 340px;
+      line-height: 1.8;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeIn 0.7s ease forwards;
+    }
+    .go-msg2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+      color: var(--ink);
+      font-weight: 400;
+      font-style: italic;
+      max-width: 340px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    /* ─── SCREEN SHAKE ─── */
+    .shake { animation: shakeIt 0.35s ease-in-out; }
+    @keyframes shakeIt {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-4px); }
+    }
+
+    /* ─── FLOATING PARTICLES BG ─── */
+    .particles-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      bottom: -20px;
+      opacity: 0;
+      animation: particleRise linear infinite;
+    }
+
+    @keyframes particleRise {
+      0%   { opacity: 0; transform: translateY(0) translateX(0); }
+      15%  { opacity: 0.4; }
+      85%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(-105dvh) translateX(var(--drift, 30px)); }
+    }
+
+    /* ─── REDUCED MOTION ─── */
+    @media (prefers-reduced-motion: reduce) {
+      .particle, .seed.blown, .celeb-sticker { animation: none !important; }
+      .fade-in { animation: none !important; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Subtle floating particles -->
+  <div class="particles-bg" id="particlesBg"></div>
+
+  <!-- ═══════ SCREEN 1 — DANDELION WISH ═══════ -->
+  <section class="screen active" id="dandelion-screen">
+    <p class="dandelion-prompt fade-in">blow it, make a wish</p>
+
+    <canvas class="fade-in" style="animation-delay:0.3s" id="dandelionCanvas" width="160" height="260" onclick="blowDandelion()"></canvas>
+
+    <p class="blow-hint fade-in" style="animation-delay:0.6s" id="blowHint">tap the dandelion</p>
+  </section>
+
+  <!-- ═══════ SCREEN 2 — INTRO ═══════ -->
+  <section class="screen" id="intro">
+    <div class="intro-sticker">
+      <img src="https://media.tenor.com/Lgr_6-nkvnUAAAAi/casal-dudu.gif"
+           alt="Dudu and Bubu with hearts">
+    </div>
+    <h1 class="intro-greeting fade-in">Hey, You</h1>
+    <p class="intro-sub fade-in" style="animation-delay:0.3s">
+      I made something for you. It'll only take a minute.
+    </p>
+    <button class="btn-primary fade-in" style="animation-delay:0.6s" onclick="goTo('coffee-quest')">
+      Continue
+    </button>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — COFFEE ═══════ -->
+  <section class="screen" id="coffee-quest">
+    <h2 class="coffee-title fade-in">but first...</h2>
+    <p class="coffee-sub fade-in" style="animation-delay:0.2s">she needs her coffee</p>
+
+    <canvas class="fade-in" style="animation-delay:0.4s" id="coffeeCanvas" width="144" height="160"></canvas>
+
+    <button class="coffee-btn fade-in" style="animation-delay:0.6s" id="coffeeBtn" onclick="coffeeStep()">add espresso</button>
+    <p class="coffee-done" id="coffeeDone">perfect. now she's ready.</p>
+    <button class="btn-primary" id="coffeeContinue" style="display:none" onclick="goTo('game-select')">Continue</button>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — CHARACTER SELECT ═══════ -->
+  <section class="screen" id="game-select">
+    <h2 class="game-title fade-in">side quest</h2>
+    <p class="game-sub fade-in" style="animation-delay:0.2s">before I ask you something...</p>
+    <p class="game-sub fade-in" style="animation-delay:0.4s">choose your runner</p>
+    <div class="char-select fade-in" style="animation-delay:0.6s">
+      <div class="char-card" onclick="selectChar('dudu')">
+        <canvas class="char-preview" id="previewDudu" width="60" height="72"></canvas>
+        <span class="char-name">Dudu</span>
+      </div>
+      <div class="char-card" onclick="selectChar('bubu')">
+        <canvas class="char-preview" id="previewBubu" width="60" height="72"></canvas>
+        <span class="char-name">Bubu</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — GAME ═══════ -->
+  <section class="screen" id="game-play">
+    <div class="game-hud">
+      <span id="gameScore">0 m</span>
+      <span id="gameHearts">&#9829; 0</span>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <p class="game-hint" id="gameHint">tap to start</p>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — GAME OVER ═══════ -->
+  <section class="screen" id="game-over">
+    <h2 class="go-score fade-in">you ran <span id="finalDist">0</span>m</h2>
+    <p class="go-hearts fade-in" style="animation-delay:0.3s">and collected <span id="finalHearts">0</span> hearts along the way</p>
+    <p class="go-msg" style="animation-delay:1.2s">not bad at all...</p>
+    <p class="go-msg2" style="animation-delay:2.5s">but all that running made someone hungry</p>
+    <button class="btn-primary fade-in" style="animation-delay:3.5s" onclick="goTo('snack-quest')">Continue</button>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — SNACK CART ═══════ -->
+  <section class="screen" id="snack-quest">
+    <h2 class="snack-title fade-in">finishing touches</h2>
+    <p class="snack-sub fade-in" style="animation-delay:0.2s">grab a snack from the cart</p>
+
+    <canvas class="fade-in" style="animation-delay:0.4s" id="snackCanvas" width="340" height="170"></canvas>
+
+    <div class="snack-btns fade-in" style="animation-delay:0.6s" id="snackBtns">
+      <button class="snack-btn" onclick="pickSnack()">papeda telur</button>
+    </div>
+
+    <p class="snack-done" id="snackDone">yum! okay, one more thing...</p>
+    <button class="btn-primary" id="snackContinue" style="display:none" onclick="goTo('courage-quest')">Continue</button>
+  </section>
+
+  <!-- ═══════ SIDE QUEST — LOADING FEELINGS ═══════ -->
+  <section class="screen" id="courage-quest">
+    <h2 class="snack-title fade-in">hold on...</h2>
+    <p class="snack-sub fade-in" style="animation-delay:0.2s">loading something important</p>
+
+    <canvas class="fade-in" style="animation-delay:0.4s" id="loadingCanvas" width="260" height="150"></canvas>
+
+    <p class="loading-text fade-in" style="animation-delay:0.6s" id="loadingText">loading butterflies...</p>
+
+    <button class="snack-btn fade-in" style="animation-delay:0.8s" id="loadingBtn" onclick="advanceLoading()">tap to load</button>
+  </section>
+
+  <!-- ═══════ SCREEN 3 — THE ASK ═══════ -->
+  <section class="screen" id="ask">
+    <div class="ask-sticker" id="askSticker">
+      <img id="askGif"
+           src="https://media.tenor.com/0cNM_9li440AAAAi/dudu-giving-flowers-bubu-flowers.gif"
+           alt="Dudu giving Bubu flowers">
+    </div>
+
+    <h2 class="ask-question fade-in">Do you want to be my Valentine?</h2>
+
+    <div class="btn-area fade-in" style="animation-delay:0.3s">
+      <button class="btn-yes" id="btnYes" onclick="handleYes()">Yes</button>
+      <div class="no-zone" id="noZone">
+        <button class="btn-no" id="btnNo">No</button>
+      </div>
+      <p class="dont-press-hint">definitely don't try pressing no</p>
+    </div>
+  </section>
+
+  <!-- ═══════ SCREEN 5 — CELEBRATION ═══════ -->
+  <section class="screen" id="celebration">
+    <div class="celeb-gifs fade-in">
+      <div class="celeb-sticker">
+        <img src="https://media.tenor.com/PZhfg9F3Dg8AAAAi/tkthao219-bubududu.gif"
+             alt="Dudu hugging Bubu" loading="lazy">
+      </div>
+    </div>
+
+    <h2 class="celeb-title fade-in">she said yes</h2>
+
+    <p class="celeb-message fade-in" style="animation-delay:0.3s">
+      what if we never met?<br>
+      then songs would just be songs,<br>
+      sunsets just a view,<br>
+      and ordinary days just ordinary —<br>
+      not reminders of you.<br><br>
+      but we did meet.<br>
+      and now this Valentine's Day is ours.
+    </p>
+
+    <div class="celeb-foreshadow fade-in" style="animation-delay:0.6s">
+      <div class="foreshadow-gif">
+        <img src="https://media.tenor.com/tLsYTSNv11IAAAAi/tkthao219-bubududu.gif"
+             alt="Dudu being cute" loading="lazy">
+      </div>
+      <p>there are more surprises coming...</p>
+      <div class="code-entry">
+        <input type="text" id="secretCode" class="code-input" placeholder="enter the code" maxlength="10" autocomplete="off" spellcheck="false">
+        <p class="code-error" id="codeError">hmm, that's not it</p>
+      </div>
+      <button class="btn-start" id="btnStart" onclick="tryCode()">Start</button>
+    </div>
+
+    <button class="back-btn fade-in" style="animation-delay:1s" onclick="goTo('ask')">← go back</button>
+  </section>
+
+  <!-- ═══════ SCREEN 6 — BOOKSHELF HUB ═══════ -->
+  <section class="screen" id="adventure">
+    <h2 class="bookshelf-title fade-in">your bookshelf</h2>
+    <p class="bookshelf-sub fade-in" style="animation-delay:0.2s">pick one to open</p>
+
+    <div class="bookshelf fade-in" style="animation-delay:0.4s">
+      <div class="book book-1" onclick="goTo('book-letter')">
+        <span class="book-number">I</span>
+        <span class="book-title">The Letter</span>
+        <span class="book-desc">words I've been saving</span>
+      </div>
+      <div class="book book-2" onclick="goTo('book-songs')">
+        <span class="book-number">II</span>
+        <span class="book-title">Our Songs</span>
+        <span class="book-desc">the playlist</span>
+      </div>
+      <div class="book book-3" onclick="goTo('book-confessions')">
+        <span class="book-number">III</span>
+        <span class="book-title">Confessions</span>
+        <span class="book-desc">things I haven't told you</span>
+      </div>
+      <div class="book book-4" onclick="goTo('book-memories')">
+        <span class="book-number">IV</span>
+        <span class="book-title">Memories</span>
+        <span class="book-desc">our moments</span>
+      </div>
+      <div class="book book-5" onclick="goTo('book-care')">
+        <span class="book-number">V</span>
+        <span class="book-title">Care Guide</span>
+        <span class="book-desc">because I care about you</span>
+      </div>
+      <div class="book book-6" onclick="openFlowers()">
+        <span class="book-number">VI</span>
+        <span class="book-title">Flowers</span>
+        <span class="book-desc">for you</span>
+      </div>
+    </div>
+    <div class="shelf-line fade-in" style="animation-delay:0.4s"></div>
+  </section>
+
+  <!-- ═══════ BOOK 1 — THE LETTER ═══════ -->
+  <section class="screen book-screen" id="book-letter">
+    <h2 class="book-screen-title fade-in">The Letter</h2>
+
+    <div class="letter-content fade-in" style="animation-delay:0.3s">
+      <p class="letter-salutation">Dear You,</p>
+      <p class="letter-body">I've been meaning to tell you something for a while now. Not through a text, not through a voice note — but like this. In a way that you can read again whenever you want.
+
+You've changed something in me. The way I think, the way I move through my days. You've made everything feel a little more vivid, a little more worth paying attention to.
+
+I don't know when it started exactly. Maybe it was the way you laugh, or the way you talk about the things you love. But somewhere along the way, you became the person I think about first and last.
+
+I'm not great with words in person. I stumble, I overthink, I second-guess. But here, on paper, I can say it plainly:
+
+You mean more to me than I've let on. And this is me letting on.</p>
+      <p class="letter-sign">Yours,<br>— Me</p>
+    </div>
+
+    <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <!-- ═══════ BOOK 2 — OUR SONGS ═══════ -->
+  <section class="screen book-screen" id="book-songs">
+    <h2 class="book-screen-title fade-in">Our Songs</h2>
+    <p class="songs-note fade-in" style="animation-delay:0.2s">songs that remind me of you</p>
+
+    <div class="songs-list fade-in" style="animation-delay:0.4s">
+      <div class="song-item active" data-track="5WOSNVChcadlsCRiqXE45K" onclick="playSong(this)">
+        <span class="song-num">01</span>
+        <div class="song-info">
+          <span class="song-name">Everything U Are</span>
+          <span class="song-artist">Hindia</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="3nsfB1vus2qaloUdcBZvDu" onclick="playSong(this)">
+        <span class="song-num">02</span>
+        <div class="song-info">
+          <span class="song-name">All Too Well (Taylor's Version)</span>
+          <span class="song-artist">Taylor Swift</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="3CBxVM0zGj41BQtE6m7gwb" onclick="playSong(this)">
+        <span class="song-num">03</span>
+        <div class="song-info">
+          <span class="song-name">Membasuh</span>
+          <span class="song-artist">Hindia, Rara Sekar</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="2sjA4DTYveWwXo9aC62vWd" onclick="playSong(this)">
+        <span class="song-num">04</span>
+        <div class="song-info">
+          <span class="song-name">Kasih Putih</span>
+          <span class="song-artist">Yovie Widianto, Glenn Fredly</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="5Egm9N7FnzsThl1CFXB2mm" onclick="playSong(this)">
+        <span class="song-num">05</span>
+        <div class="song-info">
+          <span class="song-name">Kita usahakan rumah itu</span>
+          <span class="song-artist">Sal Priadi</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="4XHijJfABTtUCW3Bp6KFvr" onclick="playSong(this)">
+        <span class="song-num">06</span>
+        <div class="song-info">
+          <span class="song-name">Tarot</span>
+          <span class="song-artist">.Feast</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="2OxvanM5m1Na9OVlXyXmUp" onclick="playSong(this)">
+        <span class="song-num">07</span>
+        <div class="song-info">
+          <span class="song-name">Lesung Pipi</span>
+          <span class="song-artist">Raim Laode</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="13CwOTXUgBugeBByE9oIWb" onclick="playSong(this)">
+        <span class="song-num">08</span>
+        <div class="song-info">
+          <span class="song-name">kota ini tak sama tanpamu</span>
+          <span class="song-artist">Nadhif Basalamah</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="4zRZAmBQP8vhNPf9i9opXt" onclick="playSong(this)">
+        <span class="song-num">09</span>
+        <div class="song-info">
+          <span class="song-name">8 Letters</span>
+          <span class="song-artist">Why Don't We</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="1HimGOB6BjOaCQYMIF1xtU" onclick="playSong(this)">
+        <span class="song-num">10</span>
+        <div class="song-info">
+          <span class="song-name">What Am I</span>
+          <span class="song-artist">Why Don't We</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="4wkhV8JcGfy1z1inN5C61D" onclick="playSong(this)">
+        <span class="song-num">11</span>
+        <div class="song-info">
+          <span class="song-name">I Told You Things</span>
+          <span class="song-artist">Gracie Abrams</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="6TPUbm9rVuawjfbbz88c58" onclick="playSong(this)">
+        <span class="song-num">12</span>
+        <div class="song-info">
+          <span class="song-name">a feeling</span>
+          <span class="song-artist">Hindia</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="2AaaE0qvFWtyT8srKNfRhH" onclick="playSong(this)">
+        <span class="song-num">13</span>
+        <div class="song-info">
+          <span class="song-name">Komang</span>
+          <span class="song-artist">Raim Laode</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="37xebnhvUyM8VyyDDeo65d" onclick="playSong(this)">
+        <span class="song-num">14</span>
+        <div class="song-info">
+          <span class="song-name">Never Let Go</span>
+          <span class="song-artist">LNGSHOT</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="1fzAuUVbzlhZ1lJAx9PtY6" onclick="playSong(this)">
+        <span class="song-num">15</span>
+        <div class="song-info">
+          <span class="song-name">Daylight</span>
+          <span class="song-artist">Taylor Swift</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="2eAvDnpXP5W0cVtiI0PUxV" onclick="playSong(this)">
+        <span class="song-num">16</span>
+        <div class="song-info">
+          <span class="song-name">Dandelions</span>
+          <span class="song-artist">Ruth B</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+      <div class="song-item" data-track="7zMMgJ8cSCg4iPuoxWtTyL" onclick="playSong(this)">
+        <span class="song-num">17</span>
+        <div class="song-info">
+          <span class="song-name">Fall</span>
+          <span class="song-artist">Justin Bieber</span>
+        </div>
+        <span class="song-play-icon">&#9654;</span>
+      </div>
+    </div>
+
+    <div class="spotify-player fade-in" style="animation-delay:0.5s" id="spotifyPlayer">
+      <iframe
+        id="spotifyEmbed"
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/track/5WOSNVChcadlsCRiqXE45K?utm_source=generator&theme=0"
+        width="100%"
+        height="152"
+        frameBorder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <!-- ═══════ BOOK 3 — CONFESSIONS ═══════ -->
+  <section class="screen book-screen" id="book-confessions">
+    <h2 class="book-screen-title fade-in">Confessions</h2>
+
+    <div class="confession-card fade-in" style="animation-delay:0.3s">
+      <span class="confession-tag" id="confessionTag">flirty</span>
+      <p class="confession-text" id="confessionText">tap shuffle to begin</p>
+      <span class="confession-count" id="confessionCount"></span>
+    </div>
+
+    <button class="btn-shuffle fade-in" style="animation-delay:0.5s" onclick="shuffleConfession()">Shuffle</button>
+    <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <!-- ═══════ BOOK 4 — MEMORIES ═══════ -->
+  <section class="screen book-screen" id="book-memories">
+    <h2 class="book-screen-title fade-in">Memories</h2>
+    <p class="memories-sub fade-in" style="animation-delay:0.2s">the moments I hold onto</p>
+
+    <div class="memories-scroll fade-in" style="animation-delay:0.4s">
+
+      <!-- MEMORY 1 -->
+      <div class="memory-card">
+        <div class="memory-photo">
+          <img src="photos/memory-1.jpg" alt="Our first memory together" loading="lazy">
+        </div>
+        <div class="memory-caption">
+          <p class="memory-text">add your favorite memory here. replace the photo and caption with your own.</p>
+        </div>
+      </div>
+
+      <!-- MEMORY 2 (placeholder — add more like the one above) -->
+      <div class="memory-card memory-placeholder">
+        <div class="memory-photo placeholder-photo">
+          <span class="placeholder-icon">+</span>
+        </div>
+        <div class="memory-caption">
+          <p class="memory-text placeholder-text">more memories coming...</p>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <!-- ═══════ BOOK 6 — FLOWERS ═══════ -->
+  <section class="screen book-screen" id="book-flowers">
+    <div class="bouquet-wrap fade-in" id="bouquetWrap">
+      <svg viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" width="280" height="380">
+        <defs>
+          <linearGradient id="paperGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#8aacc8"/>
+            <stop offset="50%" stop-color="#6b9ec2"/>
+            <stop offset="100%" stop-color="#5a8db5"/>
+          </linearGradient>
+          <radialGradient id="glowBg" cx="50%" cy="32%" r="38%">
+            <stop offset="0%" stop-color="rgba(232,197,71,0.14)"/>
+            <stop offset="100%" stop-color="rgba(232,197,71,0)"/>
+          </radialGradient>
+          <g id="lily">
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(0)"/>
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(60)"/>
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(120)"/>
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(180)"/>
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(240)"/>
+            <ellipse cx="0" cy="-16" rx="7" ry="18" fill="#fefcfa" stroke="#ccc8c0" stroke-width="0.7" transform="rotate(300)"/>
+            <circle cx="0" cy="0" r="4.5" fill="#e8c547"/>
+            <circle cx="0" cy="-7" r="1.5" fill="#c4956a"/>
+            <circle cx="6" cy="-3.5" r="1.5" fill="#c4956a"/>
+            <circle cx="6" cy="3.5" r="1.5" fill="#c4956a"/>
+            <circle cx="0" cy="7" r="1.5" fill="#c4956a"/>
+            <circle cx="-6" cy="3.5" r="1.5" fill="#c4956a"/>
+            <circle cx="-6" cy="-3.5" r="1.5" fill="#c4956a"/>
+          </g>
+        </defs>
+
+        <!-- Soft golden glow behind flowers -->
+        <circle cx="140" cy="125" r="110" fill="url(#glowBg)"/>
+
+        <!-- Stems -->
+        <line x1="125" y1="248" x2="105" y2="112" stroke="#6e8455" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="135" y1="248" x2="140" y2="90"  stroke="#6e8455" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="145" y1="248" x2="170" y2="105" stroke="#6e8455" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="130" y1="248" x2="118" y2="132" stroke="#6e8455" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="148" y1="248" x2="158" y2="138" stroke="#6e8455" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- Leaves -->
+        <ellipse cx="112" cy="188" rx="4" ry="15" fill="#8a9e6e" transform="rotate(-20 112 188)"/>
+        <ellipse cx="158" cy="182" rx="4" ry="14" fill="#7d9260" transform="rotate(18 158 182)"/>
+        <ellipse cx="128" cy="198" rx="3.5" ry="12" fill="#8a9e6e" transform="rotate(12 128 198)"/>
+
+        <!-- Wrapping paper -->
+        <polygon points="105,248 175,248 188,370 92,370" fill="url(#paperGrad)"/>
+        <line x1="115" y1="258" x2="107" y2="355" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+        <line x1="140" y1="248" x2="140" y2="370" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+        <line x1="162" y1="258" x2="170" y2="355" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+
+        <!-- Gold ribbon -->
+        <ellipse cx="140" cy="250" rx="38" ry="5" fill="#d4a574"/>
+        <path d="M118,255 Q112,273 105,283" stroke="#d4a574" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M162,255 Q168,273 175,283" stroke="#d4a574" fill="none" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- 5 White lilies -->
+        <use href="#lily" transform="translate(105,112) scale(1.05) rotate(-8)"/>
+        <use href="#lily" transform="translate(140,90) scale(1.15)"/>
+        <use href="#lily" transform="translate(170,105) scale(1.1) rotate(6)"/>
+        <use href="#lily" transform="translate(118,132) scale(0.95) rotate(-3)"/>
+        <use href="#lily" transform="translate(158,138) scale(0.98) rotate(10)"/>
+      </svg>
+    </div>
+
+    <h2 class="flowers-title fade-in" style="animation-delay:0.4s">white lilies</h2>
+    <p class="flowers-sub fade-in" style="animation-delay:0.6s">for you.</p>
+
+    <div class="flowers-reveal">
+      <p>these aren't staying on a screen.</p>
+      <p class="reveal-hint">real ones are on the way.</p>
+    </div>
+
+    <button class="btn-back fade-in" style="animation-delay:0.8s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <!-- ═══════ BOOK 5 — CARE GUIDE ═══════ -->
+  <section class="screen book-screen" id="book-care">
+    <h2 class="book-screen-title fade-in">Care Guide</h2>
+    <p class="care-sub fade-in" style="animation-delay:0.2s">researched with love</p>
+
+    <div class="care-tabs fade-in" style="animation-delay:0.3s">
+      <button class="care-tab active" onclick="switchCareTab('sleep', this)">Sleep</button>
+      <button class="care-tab" onclick="switchCareTab('comfort', this)">Comfort</button>
+      <button class="care-tab" onclick="switchCareTab('period', this)">Period</button>
+    </div>
+
+    <!-- SLEEP PANEL -->
+    <div class="care-panel active" id="care-sleep">
+      <div class="tip-card">
+        <p class="tip-title">Keep a Consistent Schedule</p>
+        <p class="tip-text">Go to bed and wake up at the same time every day — even weekends. Your body's internal clock loves routine, and consistency is one of the strongest predictors of good sleep.</p>
+        <p class="tip-source">Irish et al., 2015 — Sleep Medicine Reviews</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Cool Your Room Down</p>
+        <p class="tip-text">Set your bedroom to around 18-20°C (65-68°F). Your core body temperature naturally drops at night to initiate sleep, and a cool room helps that process along.</p>
+        <p class="tip-source">Okamoto-Mizuno & Mizuno, 2012 — Journal of Physiological Anthropology</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Screens Off Before Bed</p>
+        <p class="tip-text">Put away phones and laptops at least 30-60 minutes before sleep. Blue light suppresses melatonin production and tricks your brain into thinking it's still daytime.</p>
+        <p class="tip-source">Chang et al., 2015 — Proceedings of the National Academy of Sciences</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Try 4-7-8 Breathing</p>
+        <p class="tip-text">Breathe in for 4 seconds, hold for 7, exhale slowly for 8. This activates your parasympathetic nervous system and helps your body shift into rest mode.</p>
+        <p class="tip-source">Jerath et al., 2015 — Medical Hypotheses</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Consider Magnesium</p>
+        <p class="tip-text">Magnesium supplements (~500mg) improve sleep quality by regulating neurotransmitters that calm the nervous system. Especially helpful if you're not getting enough from food.</p>
+        <p class="tip-source">Abbasi et al., 2012 — Journal of Research in Medical Sciences</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Write Down Your Worries</p>
+        <p class="tip-text">Spend 5 minutes before bed writing a to-do list for tomorrow. Offloading thoughts onto paper significantly reduces the time it takes to fall asleep.</p>
+        <p class="tip-source">Scullin et al., 2018 — Journal of Experimental Psychology</p>
+      </div>
+    </div>
+
+    <!-- COMFORT PANEL -->
+    <div class="care-panel" id="care-comfort">
+      <div class="tip-card">
+        <p class="tip-title">Chicken Soup Actually Works</p>
+        <p class="tip-text">Not just comfort food — chicken soup has mild anti-inflammatory properties that help reduce upper respiratory symptoms. Your grandma was scientifically right.</p>
+        <p class="tip-source">Rennard et al., 2000 — CHEST Journal</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Honey for Sore Throats</p>
+        <p class="tip-text">A spoonful of honey (especially buckwheat) soothes a sore throat and calms a cough — studies show it works as well as some over-the-counter cough suppressants.</p>
+        <p class="tip-source">Paul et al., 2007 — Archives of Pediatrics & Adolescent Medicine</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Stay Hydrated (Seriously)</p>
+        <p class="tip-text">When you're sick, your body loses fluids faster through fever and congestion. Warm fluids like tea or broth also loosen congestion and soothe irritated airways.</p>
+        <p class="tip-source">Sanu & Eccles, 2008 — Rhinology</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Ginger for Nausea</p>
+        <p class="tip-text">If your stomach is upset, ginger genuinely works. About 1-1.5g of ginger has been shown to significantly reduce nausea from multiple causes.</p>
+        <p class="tip-source">Ernst & Pittler, 2000 — British Journal of Anaesthesia</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Prioritize Sleep and Rest</p>
+        <p class="tip-text">Sleep is when your immune system does its heaviest work. Sleep deprivation measurably reduces your body's ability to fight infection — so rest guilt-free.</p>
+        <p class="tip-source">Prather et al., 2015 — Sleep</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Zinc Within 24 Hours</p>
+        <p class="tip-text">If you catch a cold early, zinc lozenges taken within the first 24 hours can reduce how long you're sick by about a day. Timing is everything here.</p>
+        <p class="tip-source">Singh & Das, 2013 — Cochrane Database of Systematic Reviews</p>
+      </div>
+    </div>
+
+    <!-- PERIOD PANEL -->
+    <div class="care-panel" id="care-period">
+      <div class="tip-card">
+        <p class="tip-title">Heat Therapy Really Works</p>
+        <p class="tip-text">A heating pad on your lower abdomen is clinically proven to be as effective as ibuprofen for cramp relief. Keep one nearby — it's not placebo, it's science.</p>
+        <p class="tip-source">Akin et al., 2001 — Journal of Reproductive Medicine</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Magnesium Eases Cramps</p>
+        <p class="tip-text">Magnesium relaxes uterine smooth muscle and reduces pain intensity. Around 250-360mg daily in the days before and during your period can genuinely help.</p>
+        <p class="tip-source">Parazzini et al., 2017 — Magnesium Research</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Gentle Movement Helps</p>
+        <p class="tip-text">Light exercise — walking, stretching, yoga — releases endorphins that act as natural painkillers. Even 20-30 minutes of low-intensity movement makes a difference.</p>
+        <p class="tip-source">Matthewman et al., 2018 — BMC Women's Health</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Ginger Tea for Pain</p>
+        <p class="tip-text">750-2000mg of ginger powder per day during the first 3-4 days of your period reduces menstrual pain as effectively as ibuprofen. Make it a warm tea.</p>
+        <p class="tip-source">Ozgoli et al., 2009 — Journal of Alternative and Complementary Medicine</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Dark Chocolate (Yes, Really)</p>
+        <p class="tip-text">Dark chocolate (70%+ cacao) is rich in magnesium and triggers endorphin release. There's real science behind the craving — and it may genuinely help with cramps and mood.</p>
+        <p class="tip-source">Davinelli et al., 2014 — Nutrition Reviews; Bruinsma & Taren, 1999 — JADA</p>
+      </div>
+      <div class="tip-card">
+        <p class="tip-title">Anti-Inflammatory Foods</p>
+        <p class="tip-text">Omega-3s from fish, flaxseed, or walnuts reduce prostaglandins — the compound directly responsible for uterine cramping. Add these in the days before your period.</p>
+        <p class="tip-source">Harel et al., 1996 — American Journal of Obstetrics and Gynecology</p>
+      </div>
+    </div>
+
+    <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
+  </section>
+
+  <script>
+    // ═══════════════════════════════════════
+    //  SUBTLE FLOATING PARTICLES
+    // ═══════════════════════════════════════
+    (function initParticles() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const bg = document.getElementById('particlesBg');
+      const count = window.innerWidth < 600 ? 8 : 14;
+      const chars = ['\u2727', '\u00B7', '\u2022', '\u2726'];
+
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        p.textContent = chars[Math.floor(Math.random() * chars.length)];
+        p.style.left = Math.random() * 100 + '%';
+        p.style.fontSize = (8 + Math.random() * 10) + 'px';
+        p.style.color = 'rgba(42,35,32,' + (0.08 + Math.random() * 0.1) + ')';
+        p.style.animationDuration = (14 + Math.random() * 16) + 's';
+        p.style.animationDelay = (Math.random() * 18) + 's';
+        p.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+        bg.appendChild(p);
+      }
+    })();
+
+    // ═══════════════════════════════════════
+    //  DANDELION — Pixel Art Canvas
+    // ═══════════════════════════════════════
+    let dandelionBlown = false;
+
+    (function initDandelion() {
+      const cvs = document.getElementById('dandelionCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+
+      const P = 4; // pixel size
+      const W = cvs.width;  // 160
+      const H = cvs.height; // 260
+      const cx = W / 2;     // center x
+
+      // Positions
+      const stemBottom = 230;
+      const stemTop = 120;
+      const headY = stemTop - P;
+
+      // Colors
+      const COL = {
+        stem: '#6e8455', stemDk: '#5a6e45', leaf: '#7d9460',
+        head: '#b5ad9f', headDk: '#a09888',
+        stalk: '#c0b8a8',
+        puff: '#ddd6c8', puffLt: '#e8e2d6', puffDk: '#c8c0b0',
+      };
+
+      // Generate seeds in radial pattern
+      const SEED_COUNT = 22;
+      const seeds = [];
+      for (let i = 0; i < SEED_COUNT; i++) {
+        const angle = (i / SEED_COUNT) * Math.PI * 2;
+        const ring = (i % 3 === 0) ? 36 : (i % 3 === 1) ? 28 : 44;
+        const bx = cx + Math.cos(angle) * ring;
+        const by = headY + Math.sin(angle) * ring;
+        const speed = 1.2 + Math.random() * 2.2;
+        seeds.push({
+          bx, by, x: bx, y: by, angle,
+          blown: false, opacity: 1,
+          vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 0.6,
+          vy: Math.sin(angle) * speed - 1.8 - Math.random() * 1.5,
+          delay: Math.floor(Math.random() * 18),
+        });
+      }
+
+      // Snap-to-grid pixel draw
+      function px(x, y, col) {
+        ctx.fillStyle = col;
+        ctx.fillRect(Math.round(x / P) * P, Math.round(y / P) * P, P, P);
+      }
+
+      function drawStem() {
+        for (let y = stemTop; y <= stemBottom; y += P) {
+          px(cx - P, y, COL.stem);
+          px(cx, y, COL.stem);
+        }
+        // Right leaf
+        const ly = stemBottom - 56;
+        px(cx + P, ly, COL.leaf);
+        px(cx + P * 2, ly - P, COL.leaf);
+        px(cx + P * 3, ly - P * 2, COL.leaf);
+        px(cx + P * 2, ly, COL.leaf);
+        px(cx + P * 3, ly - P, COL.leaf);
+        // Left leaf
+        const ly2 = stemBottom - 88;
+        px(cx - P * 2, ly2, COL.leaf);
+        px(cx - P * 3, ly2 + P, COL.leaf);
+        px(cx - P * 2, ly2 + P, COL.leaf);
+      }
+
+      function drawHead() {
+        px(cx - P, headY, COL.head);
+        px(cx, headY, COL.head);
+        px(cx - P, headY - P, COL.headDk);
+        px(cx, headY - P, COL.headDk);
+        px(cx - P, headY + P, COL.headDk);
+        px(cx, headY + P, COL.head);
+      }
+
+      function drawSeedStalk(sx, sy) {
+        const dx = sx - cx, dy = sy - headY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const steps = Math.max(1, Math.floor(dist / P));
+        ctx.fillStyle = COL.stalk;
+        for (let s = 0; s <= steps; s++) {
+          const t = s / steps;
+          ctx.fillRect(
+            Math.round((cx + dx * t) / P) * P,
+            Math.round((headY + dy * t) / P) * P,
+            P * 0.5, P * 0.5
+          );
+        }
+      }
+
+      function drawSeedPuff(x, y, alpha) {
+        ctx.globalAlpha = alpha;
+        px(x, y, COL.puff);
+        px(x - P, y, COL.puffLt);
+        px(x + P, y, COL.puffLt);
+        px(x, y - P, COL.puffLt);
+        px(x, y + P, COL.puffDk);
+        ctx.globalAlpha = 1;
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        drawStem();
+        drawHead();
+        seeds.forEach(s => {
+          if (!s.blown) drawSeedStalk(s.x, s.y);
+          drawSeedPuff(s.x, s.y, s.opacity);
+        });
+      }
+
+      // Gentle sway before blow
+      let swayId, swayF = 0;
+      function sway() {
+        if (dandelionBlown) return;
+        swayF++;
+        seeds.forEach((s, i) => {
+          s.x = s.bx + Math.sin((swayF + i * 11) * 0.025) * 1.5;
+          s.y = s.by + Math.sin((swayF + i * 7) * 0.02) * 0.8;
+        });
+        draw();
+        swayId = requestAnimationFrame(sway);
+      }
+      draw();
+      sway();
+
+      // Blow animation
+      let frame = 0;
+      function animate() {
+        frame++;
+        let allGone = true;
+        seeds.forEach(s => {
+          if (!s.blown && frame > s.delay) s.blown = true;
+          if (s.blown && s.opacity > 0) {
+            allGone = false;
+            s.x += s.vx;
+            s.y += s.vy;
+            s.vy -= 0.025;
+            s.vx += (Math.random() - 0.5) * 0.08;
+            s.opacity -= 0.009;
+            if (s.opacity < 0) s.opacity = 0;
+          }
+        });
+        draw();
+        if (!allGone) requestAnimationFrame(animate);
+      }
+
+      window.blowDandelion = function() {
+        if (dandelionBlown) return;
+        dandelionBlown = true;
+        cancelAnimationFrame(swayId);
+        document.getElementById('blowHint').style.display = 'none';
+        animate();
+        setTimeout(() => goTo('intro'), 3200);
+      };
+    })();
+
+    // ═══════════════════════════════════════
+    //  NAVIGATION
+    // ═══════════════════════════════════════
+    function goTo(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById(screenId);
+      target.classList.add('active');
+
+      target.querySelectorAll('.fade-in').forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+      });
+      window.scrollTo(0, 0);
+
+      // Initialize No button position when Ask screen opens
+      if (screenId === 'ask') initNoButton();
+      // Draw snack scene when navigating to it
+      if (screenId === 'snack-quest') setTimeout(drawSnackScene, 50);
+      // Loading feelings scene
+      if (screenId === 'courage-quest') setTimeout(initLoadingFeelings, 50);
+    }
+
+    // ═══════════════════════════════════════
+    //  NO BUTTON — DODGES CURSOR
+    // ═══════════════════════════════════════
+    let noCount = 0;
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const noZone = document.getElementById('noZone');
+    const askScreen = document.getElementById('ask');
+    const askGif = document.getElementById('askGif');
+    const askSticker = document.getElementById('askSticker');
+
+    const noMessages = [
+      'No',
+      'Are you sure?',
+      'Really sure?',
+      'Think again',
+      'Pretty please?',
+      'With ice cream on top?',
+      'I\'ll cook for you',
+      'I\'ll let you pick the movie',
+      'PLEASE SAY YES',
+      'I\'m going to cry',
+      'ok I\'m crying now',
+      'actually I\'m fine',
+      '...no I\'m not fine',
+      'JUST SAY YES',
+      'I\'ll ask again tomorrow',
+      'and the day after that',
+    ];
+
+    // GIF stages — all transparent/white backgrounds
+    const askGifs = [
+      // 0: hopeful — dudu giving flowers
+      'https://media.tenor.com/0cNM_9li440AAAAi/dudu-giving-flowers-bubu-flowers.gif',
+      // 1: shy — dudu shy with flowers
+      'https://media.tenor.com/-HF7-xdOAAwAAAAx/bubu-dudu-bubu-dudu-shy.webp',
+      // 2: still pleading — panda shy
+      'https://media.tenor.com/XFYEWpH5LxwAAAAi/bear-panda.gif',
+      // 3: getting sad — bubu sad face
+      'https://media.tenor.com/-D3LBHnOy-8AAAAi/bubu-sad-bubu-crying.gif',
+      // 4: sad — bubu sad face
+      'https://media.tenor.com/-D3LBHnOy-8AAAAi/bubu-sad-bubu-crying.gif',
+      // 5: crying — panda with tissues
+      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+      // 6: crying harder — big tears
+      'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
+      // 7: brown bear crying
+      'https://media.tenor.com/yZoKXA08ZyYAAAAi/bubu-bubu-dudu.gif',
+      // 8: not happy — pouty
+      'https://media.tenor.com/iszesSNWYY4AAAAi/bubu-not-happy-not-now.gif',
+      // 9: angry walk
+      'https://media.tenor.com/zyud8rY84swAAAAi/bubu-bubu-angry.gif',
+      // 10+: cycle through crying/sad
+      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+      'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
+      'https://media.tenor.com/yZoKXA08ZyYAAAAi/bubu-bubu-dudu.gif',
+      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+      'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
+      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+    ];
+
+    // Preload all GIF stages
+    askGifs.forEach(src => { const img = new Image(); img.src = src; });
+
+    function initNoButton() {
+      noCount = 0;
+      btnNo.textContent = 'No';
+      btnNo.style.transform = 'translate(-50%, -50%)';
+      btnYes.style.fontSize = '';
+      btnYes.style.padding = '';
+      askSticker.style.width = '';
+      askSticker.style.height = '';
+      askGif.src = askGifs[0];
+    }
+
+    function dodgeNo() {
+      noCount++;
+      const idx = Math.min(noCount, noMessages.length - 1);
+
+      // Update No button text
+      btnNo.textContent = noMessages[idx];
+
+      // Grow Yes button
+      const yesFontSize = 0.9 + noCount * 0.12;
+      const yesPad = 14 + noCount * 3;
+      btnYes.style.fontSize = yesFontSize + 'rem';
+      btnYes.style.padding = `${yesPad}px ${yesPad + 26}px`;
+
+      // Swap GIF
+      const gifIdx = Math.min(noCount, askGifs.length - 1);
+      askGif.src = askGifs[gifIdx];
+
+      // Grow sticker
+      const size = 220 + noCount * 5;
+      askSticker.style.width = size + 'px';
+      askSticker.style.height = size + 'px';
+
+      // Screen shake
+      askScreen.classList.remove('shake');
+      void askScreen.offsetHeight;
+      askScreen.classList.add('shake');
+
+      // Dodge within the no-zone bounds using transform
+      // Random offset from center: +-100px horizontal, +-10px vertical
+      const offsetX = (Math.random() - 0.5) * 200;
+      const offsetY = (Math.random() - 0.5) * 20;
+      btnNo.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+    }
+
+    // Click-based dodge — she can see the button, aim for it, click it,
+    // and THEN it runs away. She sees the text change each time.
+    btnNo.addEventListener('click', dodgeNo);
+
+    // ═══════════════════════════════════════
+    //  YES — CELEBRATION
+    // ═══════════════════════════════════════
+    function handleYes() {
+      goTo('celebration');
+      fireCelebration();
+    }
+
+    function fireCelebration() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      const heart = confetti.shapeFromText({ text: '\u2764\uFE0F', scalar: 2 });
+      const pink = confetti.shapeFromText({ text: '\u{1F497}', scalar: 2 });
+      const sparkle = confetti.shapeFromText({ text: '\u2728', scalar: 2 });
+      const rose = confetti.shapeFromText({ text: '\u{1F339}', scalar: 2 });
+      const party = confetti.shapeFromText({ text: '\u{1F389}', scalar: 2 });
+      const cols = ['#FF69B4', '#FFD700', '#FF6B35', '#c4956a', '#ff4d6d', '#f5a0c0'];
+      const dfrm = true;
+
+      // Phase 1: Big layered initial burst (3 layers for depth)
+      setTimeout(() => {
+        confetti({ particleCount: 40, spread: 26, startVelocity: 55, origin: { x: 0.5, y: 0.45 }, colors: cols, shapes: [heart, pink, 'circle'], scalar: 2.2, gravity: 0.8, disableForReducedMotion: dfrm });
+        confetti({ particleCount: 30, spread: 60, origin: { x: 0.5, y: 0.45 }, colors: cols, shapes: [sparkle, rose, 'circle'], scalar: 2, disableForReducedMotion: dfrm });
+        confetti({ particleCount: 50, spread: 100, decay: 0.91, scalar: 1.5, origin: { x: 0.5, y: 0.45 }, colors: cols, shapes: [heart, 'circle'], disableForReducedMotion: dfrm });
+      }, 200);
+
+      // Phase 2: Firework-style random bursts from different positions
+      const fwEnd = Date.now() + 5000;
+      const fwInterval = setInterval(() => {
+        const timeLeft = fwEnd - Date.now();
+        if (timeLeft <= 0) { clearInterval(fwInterval); return; }
+        const count = Math.max(5, Math.floor(25 * (timeLeft / 5000)));
+        confetti({ particleCount: count, startVelocity: 30, spread: 360, ticks: 60, origin: { x: 0.1 + Math.random() * 0.25, y: Math.random() * 0.4 }, colors: cols, shapes: [heart, sparkle, 'circle'], scalar: 1.8, gravity: 0.6, disableForReducedMotion: dfrm });
+        confetti({ particleCount: count, startVelocity: 30, spread: 360, ticks: 60, origin: { x: 0.65 + Math.random() * 0.25, y: Math.random() * 0.4 }, colors: cols, shapes: [pink, rose, 'circle'], scalar: 1.8, gravity: 0.6, disableForReducedMotion: dfrm });
+      }, 300);
+
+      // Phase 3: Sustained side launchers (both edges)
+      const sideEnd = Date.now() + 4500;
+      (function sideFrame() {
+        confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0, y: 0.6 }, colors: cols, shapes: [heart, rose, sparkle, 'circle'], scalar: 2, disableForReducedMotion: dfrm });
+        confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1, y: 0.6 }, colors: cols, shapes: [heart, rose, sparkle, 'circle'], scalar: 2, disableForReducedMotion: dfrm });
+        if (Date.now() < sideEnd) requestAnimationFrame(sideFrame);
+      })();
+
+      // Phase 4: Surprise second burst (at 2.5s)
+      setTimeout(() => {
+        confetti({ particleCount: 60, spread: 120, startVelocity: 45, origin: { x: 0.3, y: 0.5 }, colors: cols, shapes: [heart, party, sparkle], scalar: 2.5, gravity: 0.7, disableForReducedMotion: dfrm });
+        confetti({ particleCount: 60, spread: 120, startVelocity: 45, origin: { x: 0.7, y: 0.5 }, colors: cols, shapes: [pink, rose, sparkle], scalar: 2.5, gravity: 0.7, disableForReducedMotion: dfrm });
+      }, 2500);
+
+      // Phase 5: Gentle heart rain (final fade)
+      setTimeout(() => {
+        const rainEnd = Date.now() + 3000;
+        (function rainFrame() {
+          confetti({ particleCount: 1, startVelocity: 0, ticks: 300, gravity: 0.4, drift: (Math.random() - 0.5) * 0.4, origin: { x: Math.random(), y: 0 }, colors: ['#FF69B4', '#ff4d6d'], shapes: [heart], scalar: 2, disableForReducedMotion: dfrm });
+          if (Date.now() < rainEnd) requestAnimationFrame(rainFrame);
+        })();
+      }, 4000);
+    }
+    // ═══════════════════════════════════════
+    //  SECRET CODE — unlocks adventure
+    // ═══════════════════════════════════════
+    const SECRET_CODE = 'valentine';
+    const codeInput = document.getElementById('secretCode');
+    const codeError = document.getElementById('codeError');
+
+    function tryCode() {
+      const entered = codeInput.value.trim().toLowerCase();
+      if (entered === SECRET_CODE.toLowerCase()) {
+        goTo('adventure');
+        // Small confetti pop for unlocking
+        setTimeout(() => {
+          confetti({
+            particleCount: 40,
+            spread: 70,
+            origin: { x: 0.5, y: 0.5 },
+            colors: ['#c4956a', '#d4a574', '#2a2320'],
+            scalar: 1.5,
+            disableForReducedMotion: true,
+          });
+        }, 300);
+      } else {
+        codeError.classList.add('visible');
+        codeInput.style.borderBottomColor = '#c4956a';
+        // Shake the input
+        codeInput.style.animation = 'none';
+        void codeInput.offsetHeight;
+        codeInput.style.animation = 'shakeIt 0.35s ease-in-out';
+        setTimeout(() => {
+          codeError.classList.remove('visible');
+          codeInput.style.borderBottomColor = '';
+          codeInput.style.animation = '';
+        }, 2000);
+      }
+    }
+
+    // Allow Enter key to submit code
+    codeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') tryCode();
+    });
+
+    // ═══════════════════════════════════════
+    //  CONFESSION RANDOMIZER
+    // ═══════════════════════════════════════
+    const confessions = [
+      { text: 'I always look for you first in every room.', tag: 'flirty' },
+      { text: 'Your smile makes me forget what I was going to say.', tag: 'flirty' },
+      { text: 'I replay our conversations in my head.', tag: 'flirty' },
+      { text: "I've rewritten texts to you more times than I'll ever admit.", tag: 'flirty' },
+      { text: 'Every time you laugh I think about how lucky I am to hear it.', tag: 'flirty' },
+      { text: 'You make ordinary days feel like something worth remembering.', tag: 'sweet' },
+      { text: 'I notice the little things about you that you probably think no one sees.', tag: 'sweet' },
+      { text: 'Talking to you is my favorite part of any day.', tag: 'sweet' },
+      { text: 'You make me want to be a better person.', tag: 'sweet' },
+      { text: "I think about your laugh more than you'd believe.", tag: 'sweet' },
+      { text: 'I knew you were different the moment I met you.', tag: 'romantic' },
+      { text: 'Every love song makes more sense because of you.', tag: 'romantic' },
+      { text: "I've never been this honest with anyone.", tag: 'romantic' },
+      { text: "You're the first person I want to tell everything to.", tag: 'romantic' },
+      { text: "I'm falling for you and I don't want to stop.", tag: 'romantic' },
+    ];
+
+    let confessionIdx = -1;
+    let shuffledOrder = [];
+    const confessionTag = document.getElementById('confessionTag');
+    const confessionText = document.getElementById('confessionText');
+    const confessionCount = document.getElementById('confessionCount');
+
+    function buildShuffledOrder() {
+      shuffledOrder = confessions.map((_, i) => i);
+      for (let i = shuffledOrder.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledOrder[i], shuffledOrder[j]] = [shuffledOrder[j], shuffledOrder[i]];
+      }
+    }
+
+    // ═══════════════════════════════════════
+    //  CARE GUIDE TABS
+    // ═══════════════════════════════════════
+    function switchCareTab(panelId, tabEl) {
+      document.querySelectorAll('.care-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.care-panel').forEach(p => p.classList.remove('active'));
+      tabEl.classList.add('active');
+      document.getElementById('care-' + panelId).classList.add('active');
+    }
+
+    // ═══════════════════════════════════════
+    //  SPOTIFY PLAYER
+    // ═══════════════════════════════════════
+    function playSong(el) {
+      const trackId = el.dataset.track;
+      if (!trackId) return;
+
+      // Update active state
+      document.querySelectorAll('.song-item').forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
+
+      // Swap Spotify embed src
+      const embed = document.getElementById('spotifyEmbed');
+      const newSrc = 'https://open.spotify.com/embed/track/' + trackId + '?utm_source=generator&theme=0';
+      if (embed.src !== newSrc) {
+        embed.src = newSrc;
+      }
+    }
+
+    // ═══════════════════════════════════════
+    //  BOOK 6: FLOWERS — LILY BOUQUET
+    // ═══════════════════════════════════════
+    // Build CSS lilies in the bouquet
+    // Bouquet is now rendered as inline SVG — no JS needed
+
+    // Open flowers screen with floating petal animation
+    let flowersOpened = false;
+    function openFlowers() {
+      goTo('book-flowers');
+
+      if (flowersOpened) return;
+      flowersOpened = true;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      // Create floating petals that fall across the screen
+      const screen = document.getElementById('book-flowers');
+      const petalCount = 20;
+      const petalColors = [
+        '#e8a0b0', // rose pink
+        '#d4a0c0', // mauve
+        '#b8a0d0', // lavender
+        '#e0c090', // warm gold
+        '#f0b0b8', // blush
+      ];
+
+      for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'floating-petal';
+        petal.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+
+        // Random start position across the top
+        petal.style.left = (Math.random() * 100) + '%';
+        petal.style.top = (-10 - Math.random() * 20) + '%';
+
+        // Random fall path
+        const xDrift = (Math.random() - 0.5) * 200;
+        const yFall = 500 + Math.random() * 400;
+        const rotation = 120 + Math.random() * 240;
+        const duration = 4 + Math.random() * 4;
+        const delay = Math.random() * 5;
+
+        petal.style.setProperty('--petal-x', xDrift + 'px');
+        petal.style.setProperty('--petal-y', yFall + 'px');
+        petal.style.setProperty('--petal-rot', rotation + 'deg');
+        petal.style.setProperty('--petal-dur', duration + 's');
+        petal.style.setProperty('--petal-delay', delay + 's');
+
+        screen.appendChild(petal);
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+          petal.classList.add('falling');
+        });
+
+        // Remove after animation completes
+        setTimeout(() => {
+          petal.remove();
+        }, (duration + delay + 1) * 1000);
+      }
+
+      // Second wave of petals for a longer-lasting effect
+      setTimeout(() => {
+        for (let i = 0; i < 12; i++) {
+          const petal = document.createElement('div');
+          petal.className = 'floating-petal';
+          petal.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
+          petal.style.left = (Math.random() * 100) + '%';
+          petal.style.top = (-10 - Math.random() * 20) + '%';
+
+          const xDrift = (Math.random() - 0.5) * 200;
+          const yFall = 500 + Math.random() * 400;
+          const rotation = 120 + Math.random() * 240;
+          const duration = 4 + Math.random() * 4;
+          const delay = Math.random() * 3;
+
+          petal.style.setProperty('--petal-x', xDrift + 'px');
+          petal.style.setProperty('--petal-y', yFall + 'px');
+          petal.style.setProperty('--petal-rot', rotation + 'deg');
+          petal.style.setProperty('--petal-dur', duration + 's');
+          petal.style.setProperty('--petal-delay', delay + 's');
+
+          screen.appendChild(petal);
+          requestAnimationFrame(() => petal.classList.add('falling'));
+          setTimeout(() => petal.remove(), (duration + delay + 1) * 1000);
+        }
+      }, 3000);
+    }
+
+    // ═══════════════════════════════════════
+    //  MINI GAME — PIXEL RUNNER
+    // ═══════════════════════════════════════
+    const GP = 4;
+    let gm = null, gCanvas, gCtx, selChar = 'dudu';
+
+    // Sprite data: 0=clear, 1=body, 2=dark, 3=eyes, 4=cheeks
+    const SP = {
+      dudu: {
+        c: { 1:'#B8860B', 2:'#7a5a0a', 3:'#2a2320', 4:'#FFB6C1' },
+        f: [[
+          [0,0,2,2,0,0,2,2,0,0],[0,2,2,2,2,2,2,2,2,0],
+          [0,1,1,1,1,1,1,1,1,0],[1,1,3,3,1,1,3,3,1,1],
+          [1,1,1,1,1,1,1,1,1,1],[1,4,1,1,1,1,1,1,4,1],
+          [0,1,1,1,3,1,1,1,1,0],[0,0,1,1,1,1,1,1,0,0],
+          [0,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,0],
+          [0,0,1,1,0,0,1,1,0,0],[0,0,1,1,0,0,1,1,0,0]
+        ],[
+          [0,0,2,2,0,0,2,2,0,0],[0,2,2,2,2,2,2,2,2,0],
+          [0,1,1,1,1,1,1,1,1,0],[1,1,3,3,1,1,3,3,1,1],
+          [1,1,1,1,1,1,1,1,1,1],[1,4,1,1,1,1,1,1,4,1],
+          [0,1,1,1,3,1,1,1,1,0],[0,0,1,1,1,1,1,1,0,0],
+          [0,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,0],
+          [0,1,1,0,0,0,0,1,1,0],[1,1,0,0,0,0,0,0,1,1]
+        ]]
+      },
+      bubu: {
+        c: { 1:'#f0ebe4', 2:'#2a2320', 3:'#2a2320', 4:'#FFB6C1' },
+        f: [[
+          [0,0,2,2,0,0,2,2,0,0],[0,2,2,2,2,2,2,2,2,0],
+          [0,1,1,1,1,1,1,1,1,0],[1,2,3,2,1,1,2,3,2,1],
+          [1,1,1,1,1,1,1,1,1,1],[1,4,1,1,1,1,1,1,4,1],
+          [0,1,1,1,3,1,1,1,1,0],[0,0,1,1,1,1,1,1,0,0],
+          [0,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,0],
+          [0,0,1,1,0,0,1,1,0,0],[0,0,1,1,0,0,1,1,0,0]
+        ],[
+          [0,0,2,2,0,0,2,2,0,0],[0,2,2,2,2,2,2,2,2,0],
+          [0,1,1,1,1,1,1,1,1,0],[1,2,3,2,1,1,2,3,2,1],
+          [1,1,1,1,1,1,1,1,1,1],[1,4,1,1,1,1,1,1,4,1],
+          [0,1,1,1,3,1,1,1,1,0],[0,0,1,1,1,1,1,1,0,0],
+          [0,1,1,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,1,1,0],
+          [0,1,1,0,0,0,0,1,1,0],[1,1,0,0,0,0,0,0,1,1]
+        ]]
+      },
+      heart: {
+        c: { 1:'#ff4d6d', 2:'#ff8fa3' },
+        s: [[0,1,1,0,1,1,0],[1,2,1,1,1,2,1],[1,1,1,1,1,1,1],
+            [0,1,1,1,1,1,0],[0,0,1,1,1,0,0],[0,0,0,1,0,0,0]]
+      },
+      crate: {
+        c: { 1:'#8B7355', 2:'#6b5e54' },
+        s: [[1,1,1,1,1,1,1,1],[1,2,1,1,1,1,2,1],[1,1,2,1,1,2,1,1],
+            [1,1,1,2,2,1,1,1],[1,1,1,2,2,1,1,1],[1,1,2,1,1,2,1,1],
+            [1,2,1,1,1,1,2,1],[1,1,1,1,1,1,1,1]]
+      },
+      barrier: {
+        c: { 1:'#e07050', 2:'#b84535' },
+        s: [[1,1,1,1,1,1,1,1],[1,2,2,2,2,2,2,1],[1,2,1,1,1,1,2,1],
+            [1,2,1,1,1,1,2,1],[1,2,1,1,1,1,2,1],[1,2,1,1,1,1,2,1],
+            [1,2,2,2,2,2,2,1],[1,1,1,1,1,1,1,1]]
+      },
+      gem: {
+        c: { 1:'#9b7dc8', 2:'#7b5db0' },
+        s: [[0,0,1,1,1,1,0,0],[0,1,2,1,1,2,1,0],[1,2,1,1,1,1,2,1],
+            [1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,2,1,1,1,1,2,1],
+            [0,1,2,1,1,2,1,0],[0,0,1,1,1,1,0,0]]
+      }
+    };
+    const obsTypes = ['crate','barrier'];
+
+    function drawSpr(ctx, spr, colors, gx, gy) {
+      for (let r = 0; r < spr.length; r++)
+        for (let c = 0; c < spr[r].length; c++) {
+          if (!spr[r][c]) continue;
+          ctx.fillStyle = colors[spr[r][c]];
+          ctx.fillRect(Math.round((gx+c)*GP), Math.round((gy+r)*GP), GP, GP);
+        }
+    }
+
+    // Draw pixel character previews on select screen
+    function drawPreviews() {
+      ['dudu','bubu'].forEach(ch => {
+        const cvs = document.getElementById('preview' + ch[0].toUpperCase() + ch.slice(1));
+        if (!cvs) return;
+        const cx = cvs.getContext('2d');
+        cx.imageSmoothingEnabled = false;
+        const ppx = 6, spr = SP[ch].f[0];
+        const ox = (cvs.width - spr[0].length * ppx) / 2;
+        const oy = (cvs.height - spr.length * ppx) / 2;
+        cx.clearRect(0, 0, cvs.width, cvs.height);
+        for (let r = 0; r < spr.length; r++)
+          for (let c = 0; c < spr[r].length; c++) {
+            if (!spr[r][c]) continue;
+            cx.fillStyle = SP[ch].c[spr[r][c]];
+            cx.fillRect(ox + c*ppx, oy + r*ppx, ppx, ppx);
+          }
+      });
+    }
+    drawPreviews();
+
+    // ═══════════════════════════════════════
+    //  COFFEE QUEST — PIXEL ART
+    // ═══════════════════════════════════════
+    const CG = 8; // pixel grid size
+    const cupC = {1:'#f0ebe4',2:'#7a5a3a',3:'#5c3d22',4:'#a07850',5:'#c4956a',6:'#3d1e0c',7:'#b8845a',8:'#ede0d0',9:'#6d3a20'};
+    const cupG = [
+      [0,0,0,2,2,2,2,2,2,2,2,2,2,2,0,0,0,0],
+      [0,0,2,3,1,1,1,1,1,1,1,1,1,3,2,0,0,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,2,2,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,2,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,2,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,2,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,2,2,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,0,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,0,0],
+      [0,0,2,1,1,1,1,1,1,1,1,1,1,1,2,0,0,0],
+      [0,0,0,2,1,1,1,1,1,1,1,1,1,2,0,0,0,0],
+      [0,0,0,0,2,2,2,2,2,2,2,2,2,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      [0,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,0],
+      [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4],
+    ];
+    // Interior rows bottom→top: indices for fill animation
+    const FILL_ORDER = [10,9,8,7,6,5,4,3,2,1];
+    const STEAM_Y = 40; // px above cup for steam
+    let cFill = 0, cColor = 6, cFoamOn = false, cHeartOn = false;
+    let cSteamP = [], cSteamT = null, cStep = 0;
+
+    function drawCup() {
+      const cvs = document.getElementById('coffeeCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+      for (let r = 0; r < cupG.length; r++) {
+        for (let c = 0; c < cupG[r].length; c++) {
+          let v = cupG[r][c];
+          if (!v) continue;
+          if (v === 1) {
+            const fi = FILL_ORDER.indexOf(r);
+            if (fi !== -1 && fi < cFill) {
+              v = (cFoamOn && fi === cFill - 1) ? 8 : cColor;
+            }
+          }
+          ctx.fillStyle = (typeof v === 'number') ? cupC[v] : v;
+          ctx.fillRect(c * CG, STEAM_Y + r * CG, CG, CG);
+        }
+      }
+      // Heart overlay
+      if (cHeartOn) {
+        const h = [[0,1,0,1,0],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]];
+        ctx.fillStyle = cupC[9];
+        for (let hr = 0; hr < h.length; hr++)
+          for (let hc = 0; hc < h[hr].length; hc++)
+            if (h[hr][hc]) ctx.fillRect((6+hc)*CG, STEAM_Y+(2+hr)*CG, CG, CG);
+      }
+      // Steam particles
+      cSteamP.forEach(p => {
+        ctx.fillStyle = `rgba(170,160,150,${0.5*(1-p.a/5)})`;
+        ctx.fillRect(p.c * CG, p.r * CG, CG, CG);
+      });
+    }
+
+    function pourTo(target, color, foam, cb) {
+      cColor = color;
+      cFoamOn = foam;
+      const iv = setInterval(() => {
+        cFill++;
+        drawCup();
+        if (cFill >= target) { clearInterval(iv); if (cb) cb(); }
+      }, 180);
+    }
+
+    function startCoffeeSteam() {
+      cSteamT = setInterval(() => {
+        if (cSteamP.length < 5 && Math.random() > 0.3)
+          cSteamP.push({ c: 5+Math.floor(Math.random()*7), r: Math.floor(STEAM_Y/CG)-1, a: 0 });
+        cSteamP.forEach(p => {
+          p.r--;
+          if (Math.random() > 0.6) p.c += Math.random() > 0.5 ? 1 : -1;
+          p.a++;
+        });
+        cSteamP = cSteamP.filter(p => p.r >= 0 && p.a < 5);
+        drawCup();
+      }, 280);
+    }
+
+    function coffeeStep() {
+      cStep++;
+      const btn = document.getElementById('coffeeBtn');
+      if (cStep === 1) {
+        btn.style.pointerEvents = 'none';
+        pourTo(4, 6, false, () => { btn.textContent = 'add milk'; btn.style.pointerEvents = ''; });
+      } else if (cStep === 2) {
+        btn.style.pointerEvents = 'none';
+        pourTo(9, 7, true, () => { btn.textContent = 'add sugar'; btn.style.pointerEvents = ''; });
+      } else if (cStep === 3) {
+        btn.style.pointerEvents = 'none';
+        cHeartOn = true;
+        drawCup();
+        startCoffeeSteam();
+        btn.style.display = 'none';
+        setTimeout(() => {
+          document.getElementById('coffeeDone').classList.add('show');
+          document.getElementById('coffeeContinue').style.display = '';
+        }, 900);
+      }
+    }
+    drawCup();
+
+    // ═══════════════════════════════════════
+    //  SNACK QUEST — PIXEL ART CART
+    // ═══════════════════════════════════════
+    const SG = 5; // snack grid pixel size
+    const cartColors = {1:'#c0392b',2:'#e74c3c',3:'#5c3d22',4:'#8B7355',5:'#a09080',6:'#4a3520',7:'#7a5a3a'};
+    const cartG = [
+      [0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
+      [0,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,0],
+      [0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0],
+      [0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0],
+      [3,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,3],
+      [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+      [3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3],
+      [3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3],
+      [3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3],
+      [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
+      [0,0,0,7,7,7,0,0,0,0,0,0,0,0,0,7,7,7,0,0,0,0],
+      [0,0,7,6,6,6,7,0,0,0,0,0,0,0,7,6,6,6,7,0,0,0],
+      [0,0,0,7,7,7,0,0,0,0,0,0,0,0,0,7,7,7,0,0,0,0],
+    ];
+    // Papeda telur sprite (5 cols x 8 rows)
+    const eggColors = {1:'#C4994A', 2:'#F0C040', 3:'#D4A020', 4:'#F5D860'};
+    const eggGrid = [
+      [0,0,4,0,0],[0,2,2,2,0],[2,2,3,2,2],[0,2,2,2,0],
+      [0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],[0,0,1,0,0],
+    ];
+    // Lantern sprite (3 cols x 5 rows)
+    const lanternColors = {1:'#c0392b', 2:'#FF6B35', 3:'#FFD700'};
+    const lanternGrid = [[0,1,0],[1,2,1],[1,3,1],[1,2,1],[0,1,0]];
+    // Wooden crate sprite (4 cols x 4 rows)
+    const crateColors = {1:'#8B7355', 2:'#6b5e54'};
+    const crateGrid = [[1,1,1,1],[1,2,1,2],[1,1,2,1],[1,1,1,1]];
+    let snackPicked = -1;
+    let snackHearts = [];
+
+    function drawPixGrid(ctx, grid, colors, px, py, gp) {
+      for (let r = 0; r < grid.length; r++)
+        for (let c = 0; c < grid[r].length; c++) {
+          const v = grid[r][c];
+          if (v && colors[v]) {
+            ctx.fillStyle = colors[v];
+            ctx.fillRect(px + c * gp, py + r * gp, gp, gp);
+          }
+        }
+    }
+
+    function drawSnackScene() {
+      const cvs = document.getElementById('snackCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      const W = cvs.width, H = cvs.height;
+      ctx.clearRect(0, 0, W, H);
+
+      const cartX = 120, cartY = 87;
+
+      // Pennant flags above awning
+      const flagCols = ['#c0392b','#F0C040','#4CAF50','#e07050','#F0C040','#c0392b','#4CAF50'];
+      ctx.fillStyle = '#8B7355';
+      ctx.fillRect(cartX + 8, cartY - 3, 96, 1);
+      for (let i = 0; i < 7; i++) {
+        const fx = cartX + 10 + i * 14;
+        ctx.fillStyle = flagCols[i];
+        ctx.fillRect(fx, cartY - 2, SG * 2, SG);
+        ctx.fillRect(fx + Math.floor(SG / 2), cartY - 2 + SG, SG, SG);
+      }
+
+      // Cart
+      drawPixGrid(ctx, cartG, cartColors, cartX, cartY, SG);
+
+      // 4 papeda telur on sticks (like real street cart display)
+      const eggY = cartY + 4 * SG - 8 * SG;
+      const eggs = [cartX + 14, cartX + 34, cartX + 54, cartX + 74];
+      eggs.forEach(ex => drawPixGrid(ctx, eggGrid, eggColors, ex, eggY, SG));
+
+      // Gold highlight on eggs when picked
+      if (snackPicked >= 0) {
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 2;
+        eggs.forEach(ex => ctx.strokeRect(ex - 1, eggY - 1, 5 * SG + 2, 8 * SG + 2));
+      }
+
+      // Lanterns hanging from awning sides
+      const awningBottom = cartY + 2 * SG;
+      const ly = awningBottom + 3;
+      // Left lantern + string
+      const ll = cartX + 3;
+      ctx.fillStyle = '#5c3d22';
+      ctx.fillRect(ll + SG, awningBottom, 1, 3);
+      drawPixGrid(ctx, lanternGrid, lanternColors, ll, ly, SG);
+      // Right lantern + string
+      const lr = cartX + 96;
+      ctx.fillStyle = '#5c3d22';
+      ctx.fillRect(lr + SG, awningBottom, 1, 3);
+      drawPixGrid(ctx, lanternGrid, lanternColors, lr, ly, SG);
+
+      // Character (slightly bigger scale)
+      const ch = SP[selChar];
+      const charGrid = ch.f[0];
+      const cs = 6;
+      for (let r = 0; r < charGrid.length; r++)
+        for (let c = 0; c < charGrid[r].length; c++) {
+          const v = charGrid[r][c];
+          if (v && ch.c[v]) {
+            ctx.fillStyle = ch.c[v];
+            ctx.fillRect(20 + c * cs, 80 + r * cs, cs, cs);
+          }
+        }
+
+      // Small wooden crate on ground
+      drawPixGrid(ctx, crateGrid, crateColors, 88, 132, SG);
+
+      // Ground (textured)
+      ctx.fillStyle = '#d4c4b0';
+      ctx.fillRect(0, 152, W, 18);
+      ctx.fillStyle = '#c8b8a4';
+      for (let i = 0; i < 18; i++) ctx.fillRect(5 + i * 19, 156, SG - 1, SG - 1);
+
+      // Steam wisps above food
+      ctx.fillStyle = 'rgba(180,170,160,0.35)';
+      const steamX = [cartX + 24, cartX + 44, cartX + 64];
+      steamX.forEach((sx, i) => {
+        const ofs = Math.sin(Date.now() / 600 + i * 2) * 2;
+        ctx.fillRect(sx + SG, eggY - 8 + ofs, SG, SG);
+        ctx.fillRect(sx, eggY - 14 + ofs, SG, SG);
+      });
+
+      // Floating hearts
+      ctx.globalAlpha = 1;
+      snackHearts.forEach(h => {
+        const hc = SP.heart.c;
+        const hg = SP.heart.s;
+        const alpha = 1 - h.age / 20;
+        if (alpha <= 0) return;
+        ctx.globalAlpha = alpha;
+        for (let r = 0; r < hg.length; r++)
+          for (let c = 0; c < hg[r].length; c++) {
+            const v = hg[r][c];
+            if (v && hc[v]) {
+              ctx.fillStyle = hc[v];
+              ctx.fillRect(h.x + c * 4, h.y + r * 4, 4, 4);
+            }
+          }
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function pickSnack() {
+      if (snackPicked >= 0) return;
+      snackPicked = 0;
+      drawSnackScene();
+
+      // Spawn hearts above character
+      for (let i = 0; i < 5; i++) {
+        snackHearts.push({
+          x: 25 + Math.random() * 35,
+          y: 65 - i * 12,
+          age: i * 3,
+        });
+      }
+
+      // Animate hearts floating up
+      const hAnim = setInterval(() => {
+        snackHearts.forEach(h => { h.y -= 1.5; h.age++; });
+        snackHearts = snackHearts.filter(h => h.age < 20);
+        drawSnackScene();
+        if (snackHearts.length === 0) clearInterval(hAnim);
+      }, 60);
+
+      // Show completion
+      document.getElementById('snackBtns').style.display = 'none';
+      setTimeout(() => {
+        document.getElementById('snackDone').classList.add('show');
+        document.getElementById('snackContinue').style.display = '';
+      }, 800);
+    }
+
+    // ═══════════════════════════════════════
+    //  LOADING FEELINGS — FAKE LOADING SCREEN
+    // ═══════════════════════════════════════
+    let loadStep = 0;
+    const maxLoadSteps = 6;
+    let loadSparkles = [];
+    let loadBounce = 0;
+    let loadBarAnim = 0;
+    let loadAnimFrame = null;
+    const loadingMessages = [
+      'loading butterflies...',
+      'calibrating heartbeat...',
+      'cooling down cheeks...',
+      'rehearsing words...',
+      'downloading confidence.exe...',
+      'compiling feelings...',
+    ];
+
+    function initLoadingFeelings() {
+      loadStep = 0;
+      loadBounce = 0;
+      loadSparkles = [];
+      loadBarAnim = 0;
+      if (loadAnimFrame) cancelAnimationFrame(loadAnimFrame);
+      const btn = document.getElementById('loadingBtn');
+      btn.style.display = '';
+      btn.textContent = 'tap to load';
+      document.getElementById('loadingText').textContent = 'loading butterflies...';
+      document.getElementById('loadingText').style.fontWeight = '';
+      animateLoadingScene();
+    }
+
+    function animateLoadingScene() {
+      drawLoadingScene();
+      loadAnimFrame = requestAnimationFrame(animateLoadingScene);
+    }
+
+    function drawLoadingScene() {
+      const cvs = document.getElementById('loadingCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      const W = cvs.width, H = cvs.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Ground
+      ctx.fillStyle = '#d4c4b0';
+      ctx.fillRect(0, 130, W, 20);
+      ctx.fillStyle = '#c8b8a4';
+      for (let i = 0; i < 14; i++) ctx.fillRect(5 + i * 19, 133, 4, 4);
+
+      // Character (left side, scale 7)
+      const ch = SP[selChar];
+      const frame = ch.f[loadStep % ch.f.length];
+      const cs = 7;
+      const charX = 20;
+      const charY = 58 - loadBounce;
+      for (let r = 0; r < frame.length; r++)
+        for (let c = 0; c < frame[r].length; c++) {
+          const v = frame[r][c];
+          if (v && ch.c[v]) {
+            ctx.fillStyle = ch.c[v];
+            ctx.fillRect(charX + c * cs, charY + r * cs, cs, cs);
+          }
+        }
+
+      // Animated ellipsis dots above character (thinking...)
+      const dotTime = Date.now() / 400;
+      for (let d = 0; d < 3; d++) {
+        const alpha = (Math.sin(dotTime + d * 1.2) + 1) / 2;
+        ctx.globalAlpha = 0.3 + alpha * 0.7;
+        ctx.fillStyle = '#c4956a';
+        ctx.fillRect(charX + 30 + d * 10, charY - 12, 5, 5);
+      }
+      ctx.globalAlpha = 1;
+
+      // Loading bar (retro pixel style)
+      const mx = 108, my = 70, mw = 130, mh = 22;
+
+      // Outer border (double pixel border like retro games)
+      ctx.fillStyle = '#5c3d22';
+      ctx.fillRect(mx - 4, my - 4, mw + 8, mh + 8);
+      ctx.fillStyle = '#8a7e70';
+      ctx.fillRect(mx - 2, my - 2, mw + 4, mh + 4);
+
+      // Background
+      ctx.fillStyle = '#e8e0d4';
+      ctx.fillRect(mx, my, mw, mh);
+
+      // Fill — smooth animated fill toward target
+      const targetFill = (loadStep / maxLoadSteps) * mw;
+      // Snap to full when complete, otherwise ease
+      if (loadStep >= maxLoadSteps) {
+        loadBarAnim += (targetFill - loadBarAnim) * 0.15;
+        if (targetFill - loadBarAnim < 1) loadBarAnim = targetFill;
+      } else {
+        loadBarAnim += (targetFill - loadBarAnim) * 0.08;
+      }
+      const fillW = Math.min(loadBarAnim, mw);
+
+      // Gradient fill using pixel blocks (retro style)
+      const blockSize = 4;
+      const filledBlocks = Math.floor(fillW / blockSize);
+      for (let b = 0; b < filledBlocks; b++) {
+        const progress = b / (mw / blockSize);
+        // Green gradient (soft sage → vibrant green)
+        const r = Math.floor(100 - progress * 30);
+        const g = Math.floor(170 + progress * 35);
+        const bl = Math.floor(100 - progress * 20);
+        ctx.fillStyle = `rgb(${Math.max(r,60)},${Math.min(g,205)},${Math.max(bl,75)})`;
+        ctx.fillRect(mx + b * blockSize, my, blockSize, mh);
+      }
+
+      // Scan line effect (subtle horizontal lines for retro feel)
+      ctx.fillStyle = 'rgba(0,0,0,0.06)';
+      for (let y = my; y < my + mh; y += 4) {
+        ctx.fillRect(mx, y, fillW, 1);
+      }
+
+      // Animated shimmer on the fill edge
+      if (fillW > 8 && loadStep < maxLoadSteps) {
+        const shimX = mx + fillW - 6;
+        const shimAlpha = (Math.sin(Date.now() / 200) + 1) / 4;
+        ctx.globalAlpha = shimAlpha;
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(shimX, my + 2, 4, mh - 4);
+        ctx.globalAlpha = 1;
+      }
+
+      // Percentage text
+      const pct = Math.min(Math.floor((loadStep / maxLoadSteps) * 100), 100);
+      ctx.fillStyle = '#5c3d22';
+      ctx.font = '600 10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(pct + '%', mx + mw / 2, my - 8);
+
+      // Sparkles
+      loadSparkles.forEach(s => {
+        const alpha = 1 - s.age / 20;
+        if (alpha <= 0) return;
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = s.color;
+        ctx.fillRect(s.x, s.y, 3, 3);
+        ctx.fillRect(s.x - 3, s.y, 3, 3);
+        ctx.fillRect(s.x + 3, s.y, 3, 3);
+        ctx.fillRect(s.x, s.y - 3, 3, 3);
+        ctx.fillRect(s.x, s.y + 3, 3, 3);
+      });
+      ctx.globalAlpha = 1;
+
+      // Update sparkle physics
+      loadSparkles.forEach(s => { s.y -= 0.8; s.age++; });
+      loadSparkles = loadSparkles.filter(s => s.age < 20);
+
+      // Full bar glow effect
+      if (loadStep >= maxLoadSteps) {
+        const glowAlpha = (Math.sin(Date.now() / 300) + 1) / 6;
+        ctx.globalAlpha = glowAlpha;
+        ctx.fillStyle = '#4CAF50';
+        ctx.fillRect(mx - 2, my - 2, mw + 4, mh + 4);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function advanceLoading() {
+      if (loadStep >= maxLoadSteps) return;
+      loadStep++;
+
+      // Character bounce
+      loadBounce = 8;
+      setTimeout(() => { loadBounce = 4; }, 80);
+      setTimeout(() => { loadBounce = 0; }, 160);
+
+      // Spawn sparkles at fill edge
+      const sparkColors = ['#FFD700', '#4CAF50', '#81C784'];
+      const fillX = 108 + (loadStep / maxLoadSteps) * 130;
+      for (let i = 0; i < 4; i++) {
+        loadSparkles.push({
+          x: fillX + Math.random() * 12 - 6,
+          y: 60 + Math.random() * 20,
+          age: 0,
+          color: sparkColors[i % sparkColors.length],
+        });
+      }
+
+      // Update text
+      const textEl = document.getElementById('loadingText');
+      const btn = document.getElementById('loadingBtn');
+      if (loadStep < maxLoadSteps) {
+        textEl.textContent = loadingMessages[loadStep];
+        if (loadStep === maxLoadSteps - 1) btn.textContent = 'one more...';
+      } else {
+        textEl.textContent = 'ready. here goes everything.';
+        textEl.style.fontWeight = '600';
+        btn.style.display = 'none';
+        // Let the full bar glow for a moment, then transition
+        setTimeout(() => {
+          if (loadAnimFrame) cancelAnimationFrame(loadAnimFrame);
+          goTo('ask');
+        }, 1800);
+      }
+    }
+
+    function selectChar(ch) {
+      selChar = ch;
+      initGame();
+    }
+
+    function initGame() {
+      goTo('game-play');
+      gCanvas = document.getElementById('gameCanvas');
+      gCtx = gCanvas.getContext('2d');
+      gCtx.imageSmoothingEnabled = false;
+
+      const maxW = Math.min(window.innerWidth - 32, 400);
+      const maxH = Math.min(window.innerHeight - 120, 600);
+      // Layout: grass | 3 lanes | grass
+      const grassW = 6;
+      const laneGW = Math.floor((maxW / GP - grassW * 2) / 3);
+      const trackW = laneGW * 3;
+      const totalGW = grassW * 2 + trackW;
+      gCanvas.width = totalGW * GP;
+      gCanvas.height = Math.floor(maxH / GP) * GP;
+      const gw = totalGW, gh = gCanvas.height / GP;
+
+      // Pre-generate flower decorations for grass
+      const fColors = ['#ff6b9d','#ffd93d','#ffffff','#ff9ecd','#ffb347','#87ceeb'];
+      const flowers = [];
+      for (let i = 0; i < 30; i++) {
+        flowers.push({
+          x: i < 15
+            ? 1 + ((i * 3.7) % (grassW - 2))
+            : gw - grassW + 1 + (((i - 15) * 2.9) % (grassW - 2)),
+          baseY: (i * 11.3) % gh,
+          c: fColors[i % fColors.length]
+        });
+      }
+
+      gm = {
+        gw, gh, grassW, trackW, lw: laneGW, tx: grassW,
+        lane: 1, laneX: 1,
+        pY: gh - 16,
+        obs: [], hearts: [], sparkles: [], flowers,
+        score: 0, hc: 0,
+        spd: 2, frame: 0, scrollY: 0, totalScroll: 0,
+        running: false, anim: 0
+      };
+
+      drawFrame();
+      document.getElementById('gameHint').textContent = 'tap to start';
+
+      function onStart() {
+        gCanvas.removeEventListener('click', onStart);
+        gCanvas.removeEventListener('touchend', onStart);
+        document.getElementById('gameHint').textContent = '\u2190 swipe or tap to dodge \u2192';
+        gm.running = true;
+        setupControls();
+        requestAnimationFrame(gameLoop);
+      }
+      gCanvas.addEventListener('click', onStart);
+      gCanvas.addEventListener('touchend', onStart);
+    }
+
+    function setupControls() {
+      const kh = (e) => {
+        if (!gm || !gm.running) return;
+        if ((e.key === 'ArrowLeft' || e.key === 'a') && gm.lane > 0) gm.lane--;
+        if ((e.key === 'ArrowRight' || e.key === 'd') && gm.lane < 2) gm.lane++;
+      };
+      document.addEventListener('keydown', kh);
+      gm._kh = kh;
+
+      let tx = 0;
+      const ts = (e) => { tx = e.touches[0].clientX; };
+      const te = (e) => {
+        if (!gm || !gm.running) return;
+        const dx = e.changedTouches[0].clientX - tx;
+        if (dx < -30 && gm.lane > 0) gm.lane--;
+        else if (dx > 30 && gm.lane < 2) gm.lane++;
+      };
+      gCanvas.addEventListener('touchstart', ts, { passive: true });
+      gCanvas.addEventListener('touchend', te, { passive: true });
+      gm._ts = ts; gm._te = te;
+
+      const cl = (e) => {
+        if (!gm || !gm.running) return;
+        const r = gCanvas.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        if (x < r.width / 3 && gm.lane > 0) gm.lane--;
+        else if (x > r.width * 2/3 && gm.lane < 2) gm.lane++;
+      };
+      gCanvas.addEventListener('click', cl);
+      gm._cl = cl;
+    }
+
+    function cleanControls() {
+      if (!gm) return;
+      document.removeEventListener('keydown', gm._kh);
+      gCanvas.removeEventListener('touchstart', gm._ts);
+      gCanvas.removeEventListener('touchend', gm._te);
+      gCanvas.removeEventListener('click', gm._cl);
+    }
+
+    function gameLoop() {
+      if (!gm || !gm.running) return;
+
+      gm.frame++;
+      gm.score += gm.spd * 0.1;
+      gm.spd += 0.002;
+      gm.totalScroll += gm.spd;
+      gm.scrollY = gm.totalScroll % 16;
+      if (gm.frame % 8 === 0) gm.anim = 1 - gm.anim;
+
+      // Smooth lane slide
+      gm.laneX += (gm.lane - gm.laneX) * 0.15;
+
+      // Spawn obstacles with random color types
+      if (gm.frame > 120 && Math.random() < 0.012 + gm.spd * 0.002) {
+        const ln = Math.floor(Math.random() * 3);
+        if (!gm.obs.some(o => o.l === ln && o.y < 20)) {
+          const t = obsTypes[Math.floor(Math.random() * obsTypes.length)];
+          gm.obs.push({ l: ln, y: -10, t });
+        }
+      }
+
+      // Spawn hearts
+      if (gm.frame > 60 && Math.random() < 0.006) {
+        const ln = Math.floor(Math.random() * 3);
+        if (!gm.obs.some(o => o.l === ln && o.y < 25) && !gm.hearts.some(h => h.y < 30))
+          gm.hearts.push({ l: ln, y: -8 });
+      }
+
+      // Move
+      gm.obs.forEach(o => o.y += gm.spd);
+      gm.obs = gm.obs.filter(o => o.y < gm.gh + 10);
+      gm.hearts.forEach(h => h.y += gm.spd);
+      gm.hearts = gm.hearts.filter(h => h.y < gm.gh + 10);
+
+      // Update sparkles
+      gm.sparkles.forEach(s => { s.x += s.vx; s.y += s.vy; s.life--; });
+      gm.sparkles = gm.sparkles.filter(s => s.life > 0);
+
+      // Player center (offset by track start)
+      const px = gm.tx + gm.laneX * gm.lw + gm.lw / 2;
+      const py = gm.pY + 6;
+
+      // Obstacle collision
+      for (const o of gm.obs) {
+        const ox = gm.tx + o.l * gm.lw + gm.lw / 2;
+        const oy = o.y + 4;
+        if (Math.abs(px - ox) < 7 && Math.abs(py - oy) < 8) {
+          endGame(); return;
+        }
+      }
+
+      // Heart collection with sparkles
+      const spkColors = ['#ffd700','#ff6b9d','#ffffff','#ff9ecd'];
+      gm.hearts = gm.hearts.filter(h => {
+        const hx = gm.tx + h.l * gm.lw + gm.lw / 2;
+        const hy = h.y + 3;
+        if (Math.abs(px - hx) < 7 && Math.abs(py - hy) < 7) {
+          gm.hc++;
+          for (let i = 0; i < 8; i++) {
+            gm.sparkles.push({
+              x: hx, y: hy,
+              vx: (Math.random() - 0.5) * 3.5,
+              vy: (Math.random() - 0.5) * 3.5,
+              life: 12 + Math.floor(Math.random() * 8),
+              c: spkColors[Math.floor(Math.random() * spkColors.length)]
+            });
+          }
+          return false;
+        }
+        return true;
+      });
+
+      drawFrame();
+
+      document.getElementById('gameScore').textContent = Math.floor(gm.score) + ' m';
+      document.getElementById('gameHearts').textContent = '\u2665 ' + gm.hc;
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function drawFrame() {
+      const ctx = gCtx, W = gCanvas.width, H = gCanvas.height;
+
+      // Sky gradient background
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, '#c8dae8');
+      grad.addColorStop(0.4, '#d8d0e0');
+      grad.addColorStop(1, '#e8ddd0');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Green grass borders
+      ctx.fillStyle = '#6ebb3f';
+      ctx.fillRect(0, 0, gm.grassW * GP, H);
+      ctx.fillRect((gm.gw - gm.grassW) * GP, 0, gm.grassW * GP, H);
+
+      // Darker grass edge
+      ctx.fillStyle = '#5aa832';
+      ctx.fillRect((gm.grassW - 1) * GP, 0, GP, H);
+      ctx.fillRect((gm.gw - gm.grassW) * GP, 0, GP, H);
+
+      // Scrolling flowers in grass
+      gm.flowers.forEach(f => {
+        const fy = ((f.baseY + gm.totalScroll * 0.8) % gm.gh + gm.gh) % gm.gh;
+        ctx.fillStyle = f.c;
+        ctx.fillRect(Math.round(f.x * GP), Math.round(fy * GP), GP, GP);
+      });
+
+      // Track surface (warm pink)
+      ctx.fillStyle = '#e8d0c4';
+      ctx.fillRect(gm.tx * GP, 0, gm.trackW * GP, H);
+
+      // White lane dividers (scrolling dashes)
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      for (let lane = 1; lane < 3; lane++) {
+        const x = (gm.tx + lane * gm.lw) * GP - GP / 2;
+        for (let y = -16 * GP + gm.scrollY * GP; y < H; y += 16 * GP)
+          ctx.fillRect(x, y, GP, 8 * GP);
+      }
+
+      // Obstacles (colored by type)
+      gm.obs.forEach(o => {
+        const spr = SP[o.t];
+        const bx = gm.tx + o.l * gm.lw + (gm.lw - 8) / 2;
+        drawSpr(ctx, spr.s, spr.c, bx, o.y);
+      });
+
+      // Hearts with glow
+      gm.hearts.forEach(h => {
+        const bx = gm.tx + h.l * gm.lw + (gm.lw - 7) / 2;
+        const bob = Math.sin(gm.frame * 0.08 + h.y) * 0.8;
+        // Glow circle
+        const hcx = (bx + 3.5) * GP, hcy = (h.y + bob + 3) * GP;
+        ctx.fillStyle = 'rgba(255,77,109,0.15)';
+        ctx.beginPath();
+        ctx.arc(hcx, hcy, GP * 5, 0, Math.PI * 2);
+        ctx.fill();
+        drawSpr(ctx, SP.heart.s, SP.heart.c, bx, h.y + bob);
+      });
+
+      // Sparkle particles
+      gm.sparkles.forEach(s => {
+        ctx.globalAlpha = Math.max(0, s.life / 20);
+        ctx.fillStyle = s.c;
+        ctx.fillRect(Math.round(s.x * GP), Math.round(s.y * GP), GP, GP);
+      });
+      ctx.globalAlpha = 1;
+
+      // Player shadow
+      const plx = (gm.tx + gm.laneX * gm.lw + gm.lw / 2) * GP;
+      const ply = (gm.pY + 12.5) * GP;
+      ctx.fillStyle = 'rgba(42,35,32,0.15)';
+      ctx.beginPath();
+      ctx.ellipse(plx, ply, 5 * GP, 1.5 * GP, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Player
+      const ch = SP[selChar];
+      const frame = ch.f[gm.anim];
+      const ppx = gm.tx + gm.laneX * gm.lw + (gm.lw - 10) / 2;
+      drawSpr(ctx, frame, ch.c, ppx, gm.pY);
+    }
+
+    function endGame() {
+      gm.running = false;
+      cleanControls();
+
+      // Red flash
+      gCtx.fillStyle = 'rgba(180,80,80,0.25)';
+      gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height);
+
+      setTimeout(() => {
+        document.getElementById('finalDist').textContent = Math.floor(gm.score);
+        document.getElementById('finalHearts').textContent = gm.hc;
+        goTo('game-over');
+      }, 700);
+    }
+
+    function shuffleConfession() {
+      confessionIdx++;
+      if (confessionIdx >= confessions.length) {
+        confessionIdx = 0;
+        buildShuffledOrder();
+      }
+      if (shuffledOrder.length === 0) buildShuffledOrder();
+
+      const c = confessions[shuffledOrder[confessionIdx]];
+
+      // Fade out, swap, fade in
+      confessionText.style.opacity = '0';
+      setTimeout(() => {
+        confessionText.textContent = c.text;
+        confessionTag.textContent = c.tag;
+        confessionCount.textContent = (confessionIdx + 1) + ' / ' + confessions.length;
+        confessionText.style.opacity = '1';
+      }, 200);
+    }
+  </script>
+</body>
+</html>
