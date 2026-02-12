@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>For You — Valentine's Template</title>
+  <title>For You</title>
 
   <!-- Cinematic Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,8 +116,8 @@
     }
 
     .intro-sticker {
-      width: 200px;
-      height: 200px;
+      width: 240px;
+      height: 240px;
       border-radius: 50%;
       overflow: hidden;
     }
@@ -243,6 +243,40 @@
       white-space: nowrap;
     }
 
+    /* ─── BADMINTON QUEST ─── */
+    #badminton-quest {
+      background: var(--bg);
+      gap: 0.8rem;
+    }
+    #badmintonCanvas {
+      border: 1.5px solid var(--ink-faint);
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      touch-action: none;
+      cursor: pointer;
+    }
+    .badminton-hud {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 340px;
+      padding: 0 4px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+    .badminton-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 3vw, 1.15rem);
+      color: var(--ink);
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      min-height: 1.5em;
+    }
+    .badminton-msg.show { opacity: 1; }
+
     /* ─── LOADING FEELINGS ─── */
     #loadingCanvas {
       image-rendering: pixelated;
@@ -272,7 +306,8 @@
     #celebration {
       background: var(--bg-warm);
       gap: 1rem;
-      padding: 1.2rem 1.5rem;
+      padding: 1.5rem;
+      justify-content: center;
       animation: celebGlow 3s ease-in-out infinite;
     }
     @keyframes celebGlow {
@@ -288,10 +323,10 @@
     }
 
     .celeb-sticker {
-      width: 170px;
-      height: 170px;
+      width: 220px;
+      height: 220px;
       overflow: hidden;
-      border-radius: 18px;
+      border-radius: 50%;
       animation: celebFloat 3s ease-in-out infinite;
     }
     .celeb-sticker-secondary {
@@ -345,6 +380,45 @@
       text-align: center;
     }
 
+    .celeb-plan {
+      max-width: 340px;
+      width: 100%;
+      padding: 20px 28px;
+      border: 1.5px solid var(--ink-faint);
+      text-align: left;
+    }
+    .plan-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .plan-detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(42,35,32,0.06);
+    }
+    .plan-detail:last-child { border-bottom: none; }
+    .plan-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      flex-shrink: 0;
+    }
+    .plan-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      text-align: right;
+      line-height: 1.4;
+    }
     .celeb-foreshadow {
       margin-top: 0.3rem;
       padding: 18px 28px;
@@ -1409,8 +1483,8 @@
   <!-- ═══════ SCREEN 2 — INTRO ═══════ -->
   <section class="screen" id="intro">
     <div class="intro-sticker">
-      <img src="https://media.tenor.com/Lgr_6-nkvnUAAAAi/casal-dudu.gif"
-           alt="Dudu and Bubu with hearts">
+      <img src="https://media1.tenor.com/m/0cNM_9li440AAAAd/dudu-giving-flowers-bubu-flowers.gif"
+           alt="Dudu giving flowers to Bubu">
     </div>
     <h1 class="intro-greeting fade-in">Hey, You</h1>
     <p class="intro-sub fade-in" style="animation-delay:0.3s">
@@ -1465,23 +1539,22 @@
     <h2 class="go-score fade-in">you ran <span id="finalDist">0</span>m</h2>
     <p class="go-hearts fade-in" style="animation-delay:0.3s">and collected <span id="finalHearts">0</span> hearts along the way</p>
     <p class="go-msg" style="animation-delay:1.2s">not bad at all...</p>
-    <p class="go-msg2" style="animation-delay:2.5s">but all that running made someone hungry</p>
-    <button class="btn-primary fade-in" style="animation-delay:3.5s" onclick="goTo('snack-quest')">Continue</button>
+    <p class="go-msg2" style="animation-delay:2.5s">nice warmup... ready for a real game?</p>
+    <button class="btn-primary fade-in" style="animation-delay:3.5s" onclick="goTo('badminton-quest')">Continue</button>
   </section>
 
-  <!-- ═══════ SIDE QUEST — SNACK CART ═══════ -->
-  <section class="screen" id="snack-quest">
-    <h2 class="snack-title fade-in">finishing touches</h2>
-    <p class="snack-sub fade-in" style="animation-delay:0.2s">grab a snack from the cart</p>
-
-    <canvas class="fade-in" style="animation-delay:0.4s" id="snackCanvas" width="340" height="170"></canvas>
-
-    <div class="snack-btns fade-in" style="animation-delay:0.6s" id="snackBtns">
-      <button class="snack-btn" onclick="pickSnack()">papeda telur</button>
+  <!-- ═══════ SIDE QUEST — BADMINTON ═══════ -->
+  <section class="screen" id="badminton-quest">
+    <h2 class="snack-title fade-in">one more game</h2>
+    <p class="snack-sub fade-in" style="animation-delay:0.2s">rally to 3 — tap to swing</p>
+    <div class="badminton-hud fade-in" style="animation-delay:0.3s">
+      <span id="badRally">rally: 0</span>
+      <span id="badBest">best: 0</span>
     </div>
-
-    <p class="snack-done" id="snackDone">yum! okay, one more thing...</p>
-    <button class="btn-primary" id="snackContinue" style="display:none" onclick="goTo('courage-quest')">Continue</button>
+    <canvas class="fade-in" style="animation-delay:0.4s" id="badmintonCanvas" width="340" height="220"></canvas>
+    <p class="game-hint fade-in" style="animation-delay:0.6s" id="badHint">tap to start</p>
+    <p class="badminton-msg" id="badMsg"></p>
+    <button class="btn-primary" id="badContinue" style="display:none" onclick="goTo('courage-quest')">Continue</button>
   </section>
 
   <!-- ═══════ SIDE QUEST — LOADING FEELINGS ═══════ -->
@@ -1504,7 +1577,7 @@
            alt="Dudu giving Bubu flowers">
     </div>
 
-    <h2 class="ask-question fade-in">Do you want to be my Valentine?</h2>
+    <h2 class="ask-question fade-in">Will you be my Valentine?</h2>
 
     <div class="btn-area fade-in" style="animation-delay:0.3s">
       <button class="btn-yes" id="btnYes" onclick="handleYes()">Yes</button>
@@ -1519,24 +1592,14 @@
   <section class="screen" id="celebration">
     <div class="celeb-gifs fade-in">
       <div class="celeb-sticker">
-        <img src="https://media.tenor.com/PZhfg9F3Dg8AAAAi/tkthao219-bubududu.gif"
+        <img src="https://media1.tenor.com/m/ZP9TmRmovFAAAAAd/bubu-dudu.gif"
              alt="Dudu hugging Bubu" loading="lazy">
       </div>
     </div>
 
-    <h2 class="celeb-title fade-in">she said yes</h2>
+    <h2 class="celeb-title fade-in">yay! I knew you would say yes!</h2>
 
-    <p class="celeb-message fade-in" style="animation-delay:0.3s">
-      what if we never met?<br>
-      then songs would just be songs,<br>
-      sunsets just a view,<br>
-      and ordinary days just ordinary —<br>
-      not reminders of you.<br><br>
-      but we did meet.<br>
-      and now this Valentine's Day is ours.
-    </p>
-
-    <div class="celeb-foreshadow fade-in" style="animation-delay:0.6s">
+    <div class="celeb-foreshadow fade-in" style="animation-delay:0.3s">
       <div class="foreshadow-gif">
         <img src="https://media.tenor.com/tLsYTSNv11IAAAAi/tkthao219-bubududu.gif"
              alt="Dudu being cute" loading="lazy">
@@ -1607,7 +1670,7 @@ I don't know when it started exactly. Maybe it was the way you laugh, or the way
 I'm not great with words in person. I stumble, I overthink, I second-guess. But here, on paper, I can say it plainly:
 
 You mean more to me than I've let on. And this is me letting on.</p>
-      <p class="letter-sign">Yours,<br>— Me</p>
+      <p class="letter-sign">Yours,<br>Nathaniel</p>
     </div>
 
     <button class="btn-back fade-in" style="animation-delay:0.6s" onclick="goTo('adventure')">back to shelf</button>
@@ -1797,10 +1860,10 @@ You mean more to me than I've let on. And this is me letting on.</p>
       <!-- MEMORY 1 -->
       <div class="memory-card">
         <div class="memory-photo">
-          <img src="photos/memory-1.jpg" alt="Our first memory together" loading="lazy">
+          <img src="photos/lego-call.jpg" alt="Our 2nd video call — legos together" loading="lazy">
         </div>
         <div class="memory-caption">
-          <p class="memory-text">add your favorite memory here. replace the photo and caption with your own.</p>
+          <p class="memory-text">our 2nd ever video call. we made legos together, and then you stayed with me until I fell asleep.</p>
         </div>
       </div>
 
@@ -1886,7 +1949,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
     </div>
 
     <h2 class="flowers-title fade-in" style="animation-delay:0.4s">white lilies</h2>
-    <p class="flowers-sub fade-in" style="animation-delay:0.6s">for you.</p>
+    <p class="flowers-sub fade-in" style="animation-delay:0.6s">your favorite.</p>
 
     <div class="flowers-reveal">
       <p>these aren't staying on a screen.</p>
@@ -2075,13 +2138,18 @@ You mean more to me than I've let on. And this is me letting on.</p>
         const ring = (i % 3 === 0) ? 36 : (i % 3 === 1) ? 28 : 44;
         const bx = cx + Math.cos(angle) * ring;
         const by = headY + Math.sin(angle) * ring;
-        const speed = 1.2 + Math.random() * 2.2;
+        // Direction follows seed's natural radial angle + gentle rightward wind
+        const windAngle = angle - 0.3; // slight rightward bias
         seeds.push({
           bx, by, x: bx, y: by, angle,
-          blown: false, opacity: 1,
-          vx: Math.cos(angle) * speed + (Math.random() - 0.5) * 0.6,
-          vy: Math.sin(angle) * speed - 1.8 - Math.random() * 1.5,
-          delay: Math.floor(Math.random() * 18),
+          blown: false, opacity: 1, t: 0,
+          baseVx: Math.cos(windAngle) * (0.5 + Math.random() * 0.6) + 0.2,
+          baseVy: Math.sin(windAngle) * (0.4 + Math.random() * 0.5) - 0.6,
+          driftFreq: 0.015 + Math.random() * 0.012,
+          driftAmp: 6 + Math.random() * 10,
+          driftPhase: Math.random() * Math.PI * 2,
+          // Short stagger — quick smooth wave, no freeze gap
+          delay: Math.floor(i * 0.6 + Math.random() * 3),
         });
       }
 
@@ -2169,7 +2237,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
       draw();
       sway();
 
-      // Blow animation
+      // Blow animation — smooth curved floating paths
       let frame = 0;
       function animate() {
         frame++;
@@ -2178,12 +2246,21 @@ You mean more to me than I've let on. And this is me letting on.</p>
           if (!s.blown && frame > s.delay) s.blown = true;
           if (s.blown && s.opacity > 0) {
             allGone = false;
-            s.x += s.vx;
-            s.y += s.vy;
-            s.vy -= 0.025;
-            s.vx += (Math.random() - 0.5) * 0.08;
-            s.opacity -= 0.009;
-            if (s.opacity < 0) s.opacity = 0;
+            s.t++;
+            // Ease-in: seeds start slow and gradually accelerate
+            const ease = Math.min(s.t / 30, 1);
+            const speed = ease * (0.8 + ease * 0.6);
+            // Main movement: wind carries rightward and upward
+            s.x += s.baseVx * speed;
+            s.y += s.baseVy * speed;
+            // Sinusoidal drift for curved floating paths
+            s.x += Math.sin(s.t * s.driftFreq + s.driftPhase) * s.driftAmp * 0.03;
+            s.y += Math.cos(s.t * s.driftFreq * 0.7 + s.driftPhase) * s.driftAmp * 0.02;
+            // Gentle upward lift over time (seeds float up)
+            s.y -= 0.015 * ease;
+            // Smooth fade: slow at first, then faster (quadratic easing)
+            const fadeProgress = s.t / 140;
+            s.opacity = Math.max(0, 1 - fadeProgress * fadeProgress);
           }
         });
         draw();
@@ -2194,9 +2271,11 @@ You mean more to me than I've let on. And this is me letting on.</p>
         if (dandelionBlown) return;
         dandelionBlown = true;
         cancelAnimationFrame(swayId);
+        // Lock each seed's current swayed position as its starting point
+        seeds.forEach(s => { s.bx = s.x; s.by = s.y; });
         document.getElementById('blowHint').style.display = 'none';
         animate();
-        setTimeout(() => goTo('intro'), 3200);
+        setTimeout(() => goTo('intro'), 3400);
       };
     })();
 
@@ -2217,8 +2296,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
 
       // Initialize No button position when Ask screen opens
       if (screenId === 'ask') initNoButton();
-      // Draw snack scene when navigating to it
-      if (screenId === 'snack-quest') setTimeout(drawSnackScene, 50);
+      if (screenId === 'badminton-quest') setTimeout(initBadminton, 50);
       // Loading feelings scene
       if (screenId === 'courage-quest') setTimeout(initLoadingFeelings, 50);
     }
@@ -2253,7 +2331,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
       'and the day after that',
     ];
 
-    // GIF stages — all transparent/white backgrounds
+    // GIF stages — all transparent stickers, each unique
     const askGifs = [
       // 0: hopeful — dudu giving flowers
       'https://media.tenor.com/0cNM_9li440AAAAi/dudu-giving-flowers-bubu-flowers.gif',
@@ -2261,31 +2339,45 @@ You mean more to me than I've let on. And this is me letting on.</p>
       'https://media.tenor.com/-HF7-xdOAAwAAAAx/bubu-dudu-bubu-dudu-shy.webp',
       // 2: still pleading — panda shy
       'https://media.tenor.com/XFYEWpH5LxwAAAAi/bear-panda.gif',
-      // 3: getting sad — bubu sad face
+      // 3: think again — bubu pouty sad face
+      'https://media.tenor.com/SZt29KhAQ8kAAAAi/bubu-yier.gif',
+      // 4: pretty please — bubu sad sitting crying
+      'https://media.tenor.com/GaX7wejaJGAAAAAi/bubu-sad.gif',
+      // 5: ice cream — bubu sad face
       'https://media.tenor.com/-D3LBHnOy-8AAAAi/bubu-sad-bubu-crying.gif',
-      // 4: sad — bubu sad face
-      'https://media.tenor.com/-D3LBHnOy-8AAAAi/bubu-sad-bubu-crying.gif',
-      // 5: crying — panda with tissues
+      // 6: cook for you — panda with tissues
       'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
-      // 6: crying harder — big tears
+      // 7: pick the movie — crying harder big tears
       'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
-      // 7: brown bear crying
+      // 8: PLEASE SAY YES — shocked with exclamation marks
+      'https://media.tenor.com/UJCnZ5Naw74AAAAi/bubu-yier-iklog.gif',
+      // 9: going to cry — brown bear crying
       'https://media.tenor.com/yZoKXA08ZyYAAAAi/bubu-bubu-dudu.gif',
-      // 8: not happy — pouty
+      // 10: ok crying now — teddy bear crying with tear
+      'https://media.tenor.com/-npOS96NResAAAAi/bubu-dudu-seeyall.gif',
+      // 11: actually I'm fine — arms crossed cheeky
+      'https://media.tenor.com/WZyHt5hOIKsAAAAi/bubu-bubu-dudu.gif',
+      // 12: no I'm not fine — bubu sad sitting
+      'https://media.tenor.com/GaX7wejaJGAAAAAi/bubu-sad.gif',
+      // 13: JUST SAY YES — dudu angry with fire (480px)
+      'https://media.tenor.com/mX64AbW856EAAAAi/dudu-dudu-angry.gif',
+      // 14: ask again tomorrow — not happy pouty
       'https://media.tenor.com/iszesSNWYY4AAAAi/bubu-not-happy-not-now.gif',
-      // 9: angry walk
+      // 15: day after that — angry walk
       'https://media.tenor.com/zyud8rY84swAAAAi/bubu-bubu-angry.gif',
-      // 10+: cycle through crying/sad
+    ];
+    // Cycle pool for clicks beyond the main sequence
+    const askGifsCycle = [
       'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+      'https://media.tenor.com/mX64AbW856EAAAAi/dudu-dudu-angry.gif',
+      'https://media.tenor.com/-npOS96NResAAAAi/bubu-dudu-seeyall.gif',
       'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
-      'https://media.tenor.com/yZoKXA08ZyYAAAAi/bubu-bubu-dudu.gif',
-      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
-      'https://media.tenor.com/HUJyzO0WfM4AAAAi/bubu-dudu.gif',
-      'https://media.tenor.com/9gBByPt6k4oAAAAi/bubu-dudu-twitter.gif',
+      'https://media.tenor.com/WZyHt5hOIKsAAAAi/bubu-bubu-dudu.gif',
+      'https://media.tenor.com/GaX7wejaJGAAAAAi/bubu-sad.gif',
     ];
 
     // Preload all GIF stages
-    askGifs.forEach(src => { const img = new Image(); img.src = src; });
+    askGifs.concat(askGifsCycle).forEach(src => { const img = new Image(); img.src = src; });
 
     function initNoButton() {
       noCount = 0;
@@ -2311,9 +2403,12 @@ You mean more to me than I've let on. And this is me letting on.</p>
       btnYes.style.fontSize = yesFontSize + 'rem';
       btnYes.style.padding = `${yesPad}px ${yesPad + 26}px`;
 
-      // Swap GIF
-      const gifIdx = Math.min(noCount, askGifs.length - 1);
-      askGif.src = askGifs[gifIdx];
+      // Swap GIF — cycle through pool after main sequence
+      if (noCount < askGifs.length) {
+        askGif.src = askGifs[noCount];
+      } else {
+        askGif.src = askGifsCycle[(noCount - askGifs.length) % askGifsCycle.length];
+      }
 
       // Grow sticker
       const size = 220 + noCount * 5;
@@ -2399,7 +2494,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
     // ═══════════════════════════════════════
     //  SECRET CODE — unlocks adventure
     // ═══════════════════════════════════════
-    const SECRET_CODE = 'valentine';
+    const SECRET_CODE = 'love';
     const codeInput = document.getElementById('secretCode');
     const codeError = document.getElementById('codeError');
 
@@ -2787,7 +2882,7 @@ You mean more to me than I've let on. And this is me letting on.</p>
         pourTo(4, 6, false, () => { btn.textContent = 'add milk'; btn.style.pointerEvents = ''; });
       } else if (cStep === 2) {
         btn.style.pointerEvents = 'none';
-        pourTo(9, 7, true, () => { btn.textContent = 'add sugar'; btn.style.pointerEvents = ''; });
+        pourTo(9, 7, true, () => { btn.textContent = 'sweeten it up'; btn.style.pointerEvents = ''; });
       } else if (cStep === 3) {
         btn.style.pointerEvents = 'none';
         cHeartOn = true;
@@ -3079,15 +3174,19 @@ You mean more to me than I've let on. And this is me letting on.</p>
 
       // Gradient fill using pixel blocks (retro style)
       const blockSize = 4;
-      const filledBlocks = Math.floor(fillW / blockSize);
-      for (let b = 0; b < filledBlocks; b++) {
-        const progress = b / (mw / blockSize);
+      const totalBlocks = Math.ceil(mw / blockSize);
+      const filledPx = Math.round(fillW);
+      for (let b = 0; b < totalBlocks; b++) {
+        const bx = b * blockSize;
+        if (bx >= filledPx) break;
+        const bw = Math.min(blockSize, filledPx - bx);
+        const progress = b / totalBlocks;
         // Green gradient (soft sage → vibrant green)
         const r = Math.floor(100 - progress * 30);
         const g = Math.floor(170 + progress * 35);
         const bl = Math.floor(100 - progress * 20);
         ctx.fillStyle = `rgb(${Math.max(r,60)},${Math.min(g,205)},${Math.max(bl,75)})`;
-        ctx.fillRect(mx + b * blockSize, my, blockSize, mh);
+        ctx.fillRect(mx + bx, my, bw, mh);
       }
 
       // Scan line effect (subtle horizontal lines for retro feel)
@@ -3178,6 +3277,289 @@ You mean more to me than I've let on. And this is me letting on.</p>
           goTo('ask');
         }, 1800);
       }
+    }
+
+    // ═══════════════════════════════════════
+    //  BADMINTON RALLY GAME
+    // ═══════════════════════════════════════
+    let badState = null;
+    let badAnimId = null;
+
+    function initBadminton() {
+      const cvs = document.getElementById('badmintonCanvas');
+      if (!cvs) return;
+      const ctx = cvs.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      const W = cvs.width, H = cvs.height;
+      const bp = 4; // pixel size matching GP
+
+      // Reset state
+      if (badAnimId) cancelAnimationFrame(badAnimId);
+      badState = {
+        phase: 'waiting', // waiting, playing, hit, miss, won
+        rally: 0, best: 0, frame: 0,
+        // Player (left side)
+        playerX: 50, playerY: 130, playerSwing: 0,
+        // Opponent (right side) — simple auto-player
+        oppX: 260, oppY: 130, oppSwing: 0,
+        // Shuttlecock
+        birdX: 250, birdY: 80, birdVx: -1.5, birdVy: -1.7,
+        birdGravity: 0.035, birdActive: false,
+        birdGoingRight: false, // toward opponent
+        // Net
+        netX: W / 2,
+        // Timing
+        hitWindow: false,
+      };
+
+      document.getElementById('badRally').textContent = 'rally: 0';
+      document.getElementById('badBest').textContent = 'best: 0';
+      document.getElementById('badHint').style.display = '';
+      document.getElementById('badHint').textContent = 'tap to start';
+      document.getElementById('badMsg').classList.remove('show');
+      document.getElementById('badMsg').textContent = '';
+      document.getElementById('badContinue').style.display = 'none';
+
+      // Click handler
+      cvs.onclick = function() {
+        if (badState.phase === 'waiting') {
+          badState.phase = 'playing';
+          badState.birdActive = true;
+          badState.birdX = badState.oppX - 10;
+          badState.birdY = 80;
+          badState.birdVx = -1.5;
+          badState.birdVy = -1.7;
+          badState.birdGoingRight = false;
+          document.getElementById('badHint').style.display = 'none';
+          return;
+        }
+        if (badState.phase === 'playing' && !badState.birdGoingRight) {
+          // Player trying to hit — check if bird is close enough
+          const dx = badState.birdX - badState.playerX;
+          const dy = badState.birdY - badState.playerY;
+          badState.playerSwing = 8; // swing animation
+          if (dx > -35 && dx < 70 && dy > -60 && dy < 40) {
+            // Successful hit! Dynamic arc — always peaks at y≈40
+            badState.rally++;
+            var needUp = Math.max(badState.birdY - 40, 20);
+            badState.birdVx = 1.4 + Math.random() * 0.3;
+            badState.birdVy = -Math.sqrt(2 * badState.birdGravity * needUp);
+            badState.birdGoingRight = true;
+            document.getElementById('badRally').textContent = 'rally: ' + badState.rally;
+            if (badState.rally > badState.best) {
+              badState.best = badState.rally;
+              document.getElementById('badBest').textContent = 'best: ' + badState.best;
+            }
+            // Check win
+            if (badState.rally >= 3) {
+              badState.phase = 'won';
+              const msgEl = document.getElementById('badMsg');
+              msgEl.textContent = 'nice rally! I taught you well ;)';
+              msgEl.classList.add('show');
+              document.getElementById('badContinue').style.display = '';
+            }
+          }
+        }
+        if (badState.phase === 'miss') {
+          // Restart rally
+          badState.phase = 'playing';
+          badState.rally = 0;
+          badState.birdX = badState.oppX - 10;
+          badState.birdY = 80;
+          badState.birdVx = -1.5;
+          badState.birdVy = -1.7;
+          badState.birdGoingRight = false;
+          badState.birdActive = true;
+          document.getElementById('badRally').textContent = 'rally: 0';
+          document.getElementById('badHint').style.display = 'none';
+        }
+      };
+
+      function drawBadmintonFrame() {
+        const s = badState;
+        s.frame++;
+        ctx.clearRect(0, 0, W, H);
+
+        // Sky gradient (warm court feel)
+        ctx.fillStyle = '#e8e2d6';
+        ctx.fillRect(0, 0, W, H);
+
+        // Court floor
+        ctx.fillStyle = '#c8b8a4';
+        ctx.fillRect(0, 170, W, 50);
+        // Court lines
+        ctx.fillStyle = '#b0a090';
+        ctx.fillRect(0, 170, W, bp);
+        ctx.fillRect(40, 170, bp, 50);
+        ctx.fillRect(W - 44, 170, bp, 50);
+        // Center service line
+        ctx.fillStyle = '#b0a090';
+        ctx.fillRect(W / 2 - bp / 2, 174, bp, 46);
+        // Floor texture dots
+        ctx.fillStyle = '#bca888';
+        for (let i = 0; i < 20; i++) {
+          ctx.fillRect(12 + i * 17, 182, bp, bp);
+        }
+
+        // Net (center, pixel art)
+        const netX = W / 2;
+        ctx.fillStyle = '#8a7e70';
+        ctx.fillRect(netX - bp, 90, bp * 2, 84);
+        // Net mesh
+        ctx.fillStyle = '#a09888';
+        for (let ny = 94; ny < 170; ny += 8) {
+          ctx.fillRect(netX - 6, ny, 12, 1);
+        }
+        for (let nx = netX - 6; nx <= netX + 6; nx += 4) {
+          ctx.fillRect(nx, 92, 1, 78);
+        }
+        // Net top
+        ctx.fillStyle = '#f0ebe4';
+        ctx.fillRect(netX - 8, 88, 16, bp);
+
+        // Player character (left) — using selected sprite
+        const ch = SP[selChar];
+        const pFrame = ch.f[s.playerSwing > 0 ? 1 : 0];
+        const ps = 5; // pixel scale for characters
+        const py = s.playerY - (s.playerSwing > 4 ? 6 : 0);
+        for (let r = 0; r < pFrame.length; r++)
+          for (let c = 0; c < pFrame[r].length; c++) {
+            const v = pFrame[r][c];
+            if (v && ch.c[v]) {
+              ctx.fillStyle = ch.c[v];
+              ctx.fillRect(s.playerX + c * ps, py + r * ps, ps, ps);
+            }
+          }
+
+        // Player racket
+        const racketAngle = s.playerSwing > 0 ? -0.5 : 0.3;
+        const rx = s.playerX + 42;
+        const ry = py + 20 + (s.playerSwing > 0 ? -12 : 0);
+        // Racket handle
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(rx, ry + 8, bp * 2, 14);
+        // Racket head (oval-ish)
+        ctx.fillStyle = '#5c3d22';
+        ctx.fillRect(rx - 4, ry - 4, 16, bp);
+        ctx.fillRect(rx - 6, ry, 20, 12);
+        ctx.fillRect(rx - 4, ry + 12, 16, bp);
+        // Racket strings
+        ctx.fillStyle = '#d4c4b0';
+        ctx.fillRect(rx - 2, ry + 2, 12, 8);
+
+        // Opponent character (right) — opposite of selected
+        const oppChar = selChar === 'dudu' ? 'bubu' : 'dudu';
+        const oc = SP[oppChar];
+        const oFrame = oc.f[s.oppSwing > 0 ? 1 : 0];
+        const oy = s.oppY - (s.oppSwing > 4 ? 6 : 0);
+        for (let r = 0; r < oFrame.length; r++)
+          for (let c = 0; c < oFrame[r].length; c++) {
+            const v = oFrame[r][c];
+            if (v && oc.c[v]) {
+              ctx.fillStyle = oc.c[v];
+              ctx.fillRect(s.oppX + c * ps, oy + r * ps, ps, ps);
+            }
+          }
+
+        // Opponent racket (mirrored)
+        const orx = s.oppX - 14;
+        const ory = oy + 20 + (s.oppSwing > 0 ? -12 : 0);
+        ctx.fillStyle = '#8B7355';
+        ctx.fillRect(orx, ory + 8, bp * 2, 14);
+        ctx.fillStyle = '#5c3d22';
+        ctx.fillRect(orx - 4, ory - 4, 16, bp);
+        ctx.fillRect(orx - 6, ory, 20, 12);
+        ctx.fillRect(orx - 4, ory + 12, 16, bp);
+        ctx.fillStyle = '#d4c4b0';
+        ctx.fillRect(orx - 2, ory + 2, 12, 8);
+
+        // Shuttlecock (pixel art birdie)
+        if (s.birdActive) {
+          // Feather trail (based on direction)
+          const tx = s.birdGoingRight ? -1 : 1;
+          ctx.fillStyle = '#f0ebe4';
+          ctx.fillRect(s.birdX + tx * 6, s.birdY - 2, bp, bp * 3);
+          ctx.fillRect(s.birdX + tx * 10, s.birdY - 4, bp, bp * 2);
+          ctx.fillRect(s.birdX + tx * 10, s.birdY + 4, bp, bp * 2);
+          ctx.fillRect(s.birdX + tx * 14, s.birdY - 2, bp, bp * 3);
+          // Cork tip
+          ctx.fillStyle = '#c4956a';
+          ctx.fillRect(s.birdX - 2, s.birdY - 2, bp + 2, bp + 2);
+          ctx.fillStyle = '#a07850';
+          ctx.fillRect(s.birdX, s.birdY, bp, bp);
+        }
+
+        // Shadow under shuttlecock
+        if (s.birdActive) {
+          ctx.globalAlpha = 0.15;
+          ctx.fillStyle = '#2a2320';
+          ctx.fillRect(s.birdX - 4, 168, 12, bp);
+          ctx.globalAlpha = 1;
+        }
+
+        // Rally count display (pixel hearts above net)
+        for (let h = 0; h < 3; h++) {
+          const hx = netX - 24 + h * 12;
+          const filled = h < s.rally;
+          ctx.fillStyle = filled ? '#ff4d6d' : '#d4c4b0';
+          // Mini heart
+          ctx.fillRect(hx, 20, bp, bp);
+          ctx.fillRect(hx + bp, 20, bp, bp);
+          ctx.fillRect(hx + bp * 2, 20 + bp, bp, bp);
+          ctx.fillRect(hx, 20 + bp, bp, bp);
+          ctx.fillRect(hx + bp, 20 + bp * 2, bp, bp);
+          if (filled) {
+            ctx.fillStyle = '#ff8fa3';
+            ctx.fillRect(hx + bp, 20, bp, bp);
+          }
+        }
+
+        // Update physics
+        if (s.birdActive && s.phase === 'playing') {
+          s.birdX += s.birdVx;
+          s.birdY += s.birdVy;
+          s.birdVy += s.birdGravity;
+
+          // Opponent auto-hit — dynamic arc, always peaks at y≈40
+          if (s.birdGoingRight && s.birdX > s.oppX - 30) {
+            s.oppSwing = 8;
+            var oppNeedUp = Math.max(s.birdY - 40, 20);
+            s.birdVx = -(1.4 + Math.random() * 0.2);
+            s.birdVy = -Math.sqrt(2 * s.birdGravity * oppNeedUp);
+            s.birdGoingRight = false;
+          }
+
+          // Ceiling safety clamp
+          if (s.birdY < 10) {
+            s.birdY = 10;
+            if (s.birdVy < 0) s.birdVy = 0;
+          }
+
+          // Miss detection — bird hits ground
+          if (s.birdY > 165) {
+            s.birdActive = false;
+            s.phase = 'miss';
+            document.getElementById('badHint').style.display = '';
+            document.getElementById('badHint').textContent = 'tap to try again';
+          }
+
+          // Out of bounds
+          if (s.birdX < -20 || s.birdX > W + 20) {
+            s.birdActive = false;
+            s.phase = 'miss';
+            document.getElementById('badHint').style.display = '';
+            document.getElementById('badHint').textContent = 'tap to try again';
+          }
+        }
+
+        // Decay swing animations
+        if (s.playerSwing > 0) s.playerSwing--;
+        if (s.oppSwing > 0) s.oppSwing--;
+
+        badAnimId = requestAnimationFrame(drawBadmintonFrame);
+      }
+
+      drawBadmintonFrame();
     }
 
     function selectChar(ch) {
